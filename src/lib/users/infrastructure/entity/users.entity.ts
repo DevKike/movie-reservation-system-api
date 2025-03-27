@@ -1,4 +1,4 @@
-import { IUser } from 'src/domain/entities/users/user.entity.interface';
+import { IUser } from 'src/lib/users/domain/interfaces/users.entity.interface';
 import {
   Column,
   CreateDateColumn,
@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserStatus } from '../../domain/enums/user-status.enum';
 
 @Entity()
 export class User implements IUser {
@@ -20,6 +21,9 @@ export class User implements IUser {
 
   @Column({ name: 'phone_number', length: 15, unique: true })
   phoneNumber: string;
+
+  @Column({ type: 'enum', enum: UserStatus, default: UserStatus.INACTIVE })
+  status: UserStatus;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
