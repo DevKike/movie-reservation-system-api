@@ -2,7 +2,7 @@ import {
   IUser,
   IUserCreate,
   IUserUpdate,
-} from '../interfaces/users.entity.interface';
+} from '../interfaces/entity/users.entity.interface';
 
 export interface IUserService {
   getAll(): Promise<IUser[]>;

@@ -4,7 +4,7 @@ import {
   IUser,
   IUserCreate,
   IUserUpdate,
-} from '../../domain/interfaces/users.entity.interface';
+} from '../../domain/interfaces/entity/users.entity.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/users.entity';
 import { Repository } from 'typeorm';

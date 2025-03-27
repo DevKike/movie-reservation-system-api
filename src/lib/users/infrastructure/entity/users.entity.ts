@@ -1,4 +1,4 @@
-import { IUser } from 'src/lib/users/domain/interfaces/users.entity.interface';
+import { IUser } from '../../domain/interfaces/entity/users.entity.interface';
 import {
   Column,
   CreateDateColumn,
