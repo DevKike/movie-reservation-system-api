@@ -1,3 +1,3 @@
-export interface IUsersUseCase<T> {
-  execute(): Promise<T>;
+export interface IUsersUseCase<T, K = void> {
+  execute(input?: K): Promise<T>;
 }
