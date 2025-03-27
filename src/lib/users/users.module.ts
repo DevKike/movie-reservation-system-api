@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './infrastructure/entity/users.entity';
 import { GetAllUsersUseCase } from './application/get-all-users.use-case';
 import { IUserService } from './domain/services/users.service.interface';
+import { GetUserUseCase } from './application/get-user-use.case';
 
 @Module({
   providers: [
@@ -16,6 +17,12 @@ import { IUserService } from './domain/services/users.service.interface';
       provide: 'GetAllUsersUseCase',
       useFactory: (usersService: IUserService) =>
         new GetAllUsersUseCase(usersService),
+      inject: ['UsersService'],
+    },
+    {
+      provide: 'GetUserUseCase',
+      useFactory: (usersService: IUserService) =>
+        new GetUserUseCase(usersService),
       inject: ['UsersService'],
     },
   ],
