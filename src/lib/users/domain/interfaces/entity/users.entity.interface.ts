@@ -10,8 +10,7 @@ export interface IUser {
   updatedAt: Date;
 }
 
-export interface IUserSave
+export interface ISaveUser
   extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt'> {}
 
-export interface IUserUpdate
-  extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt'> {}
+export interface IUpdateUser extends Partial<ISaveUser> {}

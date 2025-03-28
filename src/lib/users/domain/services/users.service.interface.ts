@@ -1,12 +1,12 @@
 import {
   IUser,
-  IUserSave,
-  IUserUpdate,
+  ISaveUser,
+  IUpdateUser,
 } from '../interfaces/entity/users.entity.interface';
 
 export interface IUserService {
   getAll(): Promise<IUser[]>;
   get(id: IUser['id']): Promise<IUser>;
-  save(user: IUserSave): Promise<IUser>;
-  update(id: IUser['id'], user: IUserUpdate): Promise<IUser>;
+  save(user: ISaveUser): Promise<IUser>;
+  update(id: IUser['id'], user: IUpdateUser): Promise<IUser>;
 }

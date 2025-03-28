@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { IUserService } from '../../domain/services/users.service.interface';
 import {
   IUser,
-  IUserSave,
-  IUserUpdate,
+  ISaveUser,
+  IUpdateUser,
 } from '../../domain/interfaces/entity/users.entity.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/users.entity';
@@ -31,11 +31,11 @@ export class UsersService implements IUserService {
     return user;
   }
 
-  async save(user: IUserSave): Promise<IUser> {
+  async save(user: ISaveUser): Promise<IUser> {
     return await this._userRepository.save(user);
   }
 
-  async update(id: IUser['id'], user: IUserUpdate): Promise<IUser> {
+  async update(id: IUser['id'], user: IUpdateUser): Promise<IUser> {
     await this._userRepository.update(id, user);
 
     return await this.get(id);
