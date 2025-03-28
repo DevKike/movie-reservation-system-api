@@ -3,7 +3,7 @@ import {
   IUpdateUser,
 } from '../domain/interfaces/entity/users.entity.interface';
 import { IUsersUseCase } from '../domain/interfaces/use-case/users.use-case.interface';
-import { IUserService } from '../domain/interfaces/services/users.service.interface';
+import { IUserService } from '../domain/interfaces/service/users.service.interface';
 
 export class UpdateUserUseCase
   implements IUsersUseCase<IUser, IUser['id'], IUpdateUser>

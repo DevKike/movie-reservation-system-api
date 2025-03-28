@@ -1,6 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
-import { IRolesUseCase } from '../../domain/interfaces/use-cases/roles.use-case.interface';
+import { IRolesUseCase } from '../../domain/interfaces/use-case/roles.use-case.interface';
 import { IRole } from '../../domain/interfaces/entity/roles.entity.interface';
 
 @Controller('roles')
