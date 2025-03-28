@@ -4,14 +4,14 @@ export interface IUser {
   id: number;
   name: string;
   lastName: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   status: UserStatus;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface IUserCreate
-  extends Omit<IUser, 'id' | 'createdAt' | 'updatedAt'> {}
+export interface IUserSave
+  extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt'> {}
 
 export interface IUserUpdate
-  extends Omit<IUser, 'id' | 'createdAt' | 'updatedAt'> {}
+  extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt'> {}

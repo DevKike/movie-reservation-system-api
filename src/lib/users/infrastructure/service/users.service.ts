@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { IUserService } from '../../domain/services/users.service.interface';
 import {
   IUser,
-  IUserCreate,
+  IUserSave,
   IUserUpdate,
 } from '../../domain/interfaces/entity/users.entity.interface';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,7 +31,7 @@ export class UsersService implements IUserService {
     return user;
   }
 
-  async save(user: IUserCreate): Promise<IUser> {
+  async save(user: IUserSave): Promise<IUser> {
     return await this._userRepository.save(user);
   }
 
