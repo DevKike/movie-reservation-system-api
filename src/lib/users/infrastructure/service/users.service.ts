@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { IUserService } from '../../domain/service/users.service.interface';
 import {
   IUser,
@@ -8,6 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/users.entity';
 import { Repository } from 'typeorm';
+import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
 
 @Injectable()
 export class UsersService implements IUserService {
@@ -36,6 +37,8 @@ export class UsersService implements IUserService {
   }
 
   async update(id: IUser['id'], user: IUpdateUser): Promise<IUser> {
+    await this.get(id);
+
     await this._userRepository.update(id, user);
 
     return await this.get(id);
