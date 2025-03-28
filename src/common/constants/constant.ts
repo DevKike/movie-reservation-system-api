@@ -1,0 +1,13 @@
+export const CONSTANT = {
+  PROVIDERS: {
+    //USERS
+    USER_SERVICE: 'USER_SERVICE',
+  },
+
+  USE_CASES: {
+    //USERS
+    GET_ALL_USERS: 'GET_ALL_USERS_USE_CASE',
+    GET_USER: 'GET_USER_USE_CASE',
+    UPDATE_USER: 'UPDATE_USER_USE_CASE',
+  },
+};
