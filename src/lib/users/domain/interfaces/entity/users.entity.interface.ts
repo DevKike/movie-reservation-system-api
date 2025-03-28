@@ -1,4 +1,4 @@
-import { IRole } from 'src/lib/roles/domain/interfaces/roles.entity.interface';
+import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import { UserStatus } from '../../enums/user-status.enum';
 
 export interface IUser {

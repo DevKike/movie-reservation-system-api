@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserStatus } from '../../domain/enums/user-status.enum';
-import { IRole } from 'src/lib/roles/domain/interfaces/roles.entity.interface';
+import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 
 @Entity('users')

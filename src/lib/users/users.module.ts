@@ -4,7 +4,7 @@ import { UsersController } from './infrastructure/controller/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './infrastructure/entity/users.entity';
 import { GetAllUsersUseCase } from './application/get-all-users.use-case';
-import { IUserService } from './domain/services/users.service.interface';
+import { IUserService } from './domain/service/users.service.interface';
 import { GetUserUseCase } from './application/get-user.use-case';
 import { UpdateUserUseCase } from './application/update-users.use-case';
 import { CONSTANT } from 'src/common/constants/constant';
