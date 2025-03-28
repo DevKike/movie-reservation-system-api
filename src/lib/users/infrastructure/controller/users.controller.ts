@@ -13,15 +13,16 @@ import {
   IUpdateUser,
 } from '../../domain/interfaces/entity/users.entity.interface';
 import { UpdateUserDTO } from '../dtos/update-user';
+import { CONSTANT } from 'src/common/constants/constant';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject('GetAllUsersUseCase')
+    @Inject(CONSTANT.USE_CASES.GET_ALL_USERS)
     private readonly _getAllUsersUseCase: IUsersUseCase<IUser[]>,
-    @Inject('GetUserUseCase')
+    @Inject(CONSTANT.USE_CASES.GET_USER)
     private readonly _getUserUseCase: IUsersUseCase<IUser, IUser['id']>,
-    @Inject('UpdateUserUseCase')
+    @Inject(CONSTANT.USE_CASES.UPDATE_USER)
     private readonly _updateUserUseCase: IUsersUseCase<
       IUser,
       IUser['id'],
