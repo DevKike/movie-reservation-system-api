@@ -6,7 +6,6 @@ import { RolesController } from './infrastructure/controller/roles.controller';
 import { CONSTANT } from 'src/common/constants/constant';
 import { IRoleService } from './domain/interfaces/service/roles.service.interface';
 import { GetAllRolesUseCase } from './application/get-all-roles.use.case';
-import { RoleSeeder } from 'src/seeds/roles/roles.seeder';
 import { User } from '../users/infrastructure/entity/users.entity';
 
 @Module({
@@ -23,7 +22,6 @@ import { User } from '../users/infrastructure/entity/users.entity';
         new GetAllRolesUseCase(rolesService),
       inject: [CONSTANT.PROVIDERS.ROLES_SERVICE],
     },
-    RoleSeeder,
   ],
   exports: [CONSTANT.PROVIDERS.ROLES_SERVICE],
 })
