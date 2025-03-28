@@ -10,32 +10,32 @@ import { UpdateUserUseCase } from './application/update-users.use-case';
 import { CONSTANT } from 'src/common/constants/constant';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([User])],
+  controllers: [UsersController],
   providers: [
     {
-      provide: CONSTANT.PROVIDERS.USER_SERVICE,
+      provide: CONSTANT.PROVIDERS.USERS_SERVICE,
       useClass: UsersService,
     },
     {
       provide: CONSTANT.USE_CASES.GET_ALL_USERS,
       useFactory: (usersService: IUserService) =>
         new GetAllUsersUseCase(usersService),
-      inject: [CONSTANT.PROVIDERS.USER_SERVICE],
+      inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
     },
     {
       provide: CONSTANT.USE_CASES.GET_USER,
       useFactory: (usersService: IUserService) =>
         new GetUserUseCase(usersService),
-      inject: [CONSTANT.PROVIDERS.USER_SERVICE],
+      inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
     },
     {
       provide: CONSTANT.USE_CASES.UPDATE_USER,
       useFactory: (usersService: IUserService) =>
         new UpdateUserUseCase(usersService),
-      inject: [CONSTANT.PROVIDERS.USER_SERVICE],
+      inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
     },
   ],
-  controllers: [UsersController],
-  imports: [TypeOrmModule.forFeature([User])],
-  exports: [CONSTANT.PROVIDERS.USER_SERVICE],
+  exports: [CONSTANT.PROVIDERS.USERS_SERVICE],
 })
 export class UsersModule {}

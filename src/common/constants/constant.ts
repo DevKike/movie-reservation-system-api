@@ -1,10 +1,10 @@
 export const CONSTANT = {
   PROVIDERS: {
     //USERS
-    USER_SERVICE: 'UserService',
+    USERS_SERVICE: 'UsersService',
 
     //ROLES
-    ROLE_SERVICE: 'RoleService',
+    ROLES_SERVICE: 'RolesService',
   },
 
   USE_CASES: {
