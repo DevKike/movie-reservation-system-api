@@ -17,7 +17,7 @@ export class Role implements IRole {
   name: ROLES;
 
   @Column({ nullable: true })
-  description: string;
+  description?: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
