@@ -1,15 +1,6 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Inject,
-  Param,
-  ParseIntPipe,
-  Post,
-} from '@nestjs/common';
+import { Controller, Get, Inject, Param, ParseIntPipe } from '@nestjs/common';
 import { IUsersUseCase } from '../../domain/interfaces/use-case/users.use-case.interface';
 import { IUser } from '../../domain/interfaces/entity/users.entity.interface';
-import { UsersSaveDto } from '../dtos/users-save.dto';
 
 @Controller('users')
 export class UsersController {
@@ -28,10 +19,5 @@ export class UsersController {
   @Get(':id')
   async get(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
     return await this._getUserUseCase.execute(id);
-  }
-
-  @Post()
-  async save(@Body() user: UsersSaveDto): Promise<IUser> {
-    return await this._saveUserUseCase.execute(user);
   }
 }
