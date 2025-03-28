@@ -1,10 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
   const configService = app.get(ConfigService);
 
@@ -13,7 +19,12 @@ async function bootstrap() {
     'Bootstrap',
   );
 
-  await app.listen(configService.get<number>('SERVER_PORT') || 3000);
+  await app.listen(configService.get<number>('SERVER_PORT') || 3000, () => {
+    Logger.log(
+      `Server running on http://localhost:${configService.get<number>('SERVER_PORT') || 3000}`,
+      'NestApplication',
+    );
+  });
 }
 
 void bootstrap();

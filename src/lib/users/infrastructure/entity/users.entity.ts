@@ -19,8 +19,8 @@ export class User implements IUser {
   @Column({ name: 'last_name' })
   lastName: string;
 
-  @Column({ name: 'phone_number', length: 15, unique: true })
-  phoneNumber: string;
+  @Column({ name: 'phone_number', length: 15, unique: true, nullable: true })
+  phoneNumber?: string;
 
   @Column({ type: 'enum', enum: UserStatus, default: UserStatus.INACTIVE })
   status: UserStatus;
