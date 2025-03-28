@@ -4,9 +4,9 @@ import {
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
-import { IUserSave } from '../../domain/interfaces/entity/users.entity.interface';
+import { ISaveUser } from '../../domain/interfaces/entity/users.entity.interface';
 
-export class UsersSaveDto implements IUserSave {
+export class SaveUserDTO implements ISaveUser {
   @IsNotEmpty()
   @IsString()
   name: string;
