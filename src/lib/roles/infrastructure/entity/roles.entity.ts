@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IRole } from '../../domain/interfaces/roles.entity.interface';
+import { IRole } from '../../domain/interfaces/entity/roles.entity.interface';
 import { ROLES } from '../../domain/enums/roles.enum';
 
 @Entity({ name: 'roles' })
