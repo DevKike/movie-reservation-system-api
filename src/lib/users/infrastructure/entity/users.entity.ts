@@ -3,12 +3,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserStatus } from '../../domain/enums/user-status.enum';
+import { IRole } from 'src/lib/roles/domain/interfaces/roles.entity.interface';
+import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 
-@Entity()
+@Entity('users')
 export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
@@ -30,4 +34,8 @@ export class User implements IUser {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @OneToOne(() => Role)
+  @JoinColumn({ name: 'role_id' })
+  role: IRole;
 }
