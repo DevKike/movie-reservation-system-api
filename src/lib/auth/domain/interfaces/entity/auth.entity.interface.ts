@@ -11,9 +11,12 @@ export interface IAuth {
   updatedAt: Date;
   user: IUser;
 }
+
 export interface ISaveAuth
   extends Omit<IAuth, 'id' | 'createdAt' | 'updatedAt'> {}
 
 export interface IAuthCredentials extends Pick<IAuth, 'email' | 'password'> {}
 
-export interface ISignIn extends Omit<ISaveUser, 'role'>, IAuthCredentials {}
+export interface ISignIn extends ISaveUser, IAuthCredentials {}
+
+export interface ISignInRes extends Omit<IAuth, 'password'> {}
