@@ -10,7 +10,7 @@ import { UsersModule } from '../users/users.module';
 import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
-import { IHashService } from '../common/domain/services/interfaces/hash/hash.provider.interface';
+import { IHashService } from '../common/domain/services/interfaces/hash/hash.service.interface';
 import { SharedModule } from 'src/shared/shared.module';
 import { SignOnUserUseCase } from './application/sign-on-user.use-case';
 
