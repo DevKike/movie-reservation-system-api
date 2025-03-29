@@ -4,7 +4,7 @@ import { UsersController } from './infrastructure/controller/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './infrastructure/entity/users.entity';
 import { GetAllUsersUseCase } from './application/get-all-users.use-case';
-import { IUserService } from './domain/interfaces/service/users.service.interface';
+import { IUsersService } from './domain/interfaces/service/users.service.interface';
 import { GetUserUseCase } from './application/get-user.use-case';
 import { UpdateUserUseCase } from './application/update-users.use-case';
 import { CONSTANT } from 'src/common/constants/constant';
@@ -19,19 +19,19 @@ import { CONSTANT } from 'src/common/constants/constant';
     },
     {
       provide: CONSTANT.USE_CASES.GET_ALL_USERS,
-      useFactory: (usersService: IUserService) =>
+      useFactory: (usersService: IUsersService) =>
         new GetAllUsersUseCase(usersService),
       inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
     },
     {
       provide: CONSTANT.USE_CASES.GET_USER,
-      useFactory: (usersService: IUserService) =>
+      useFactory: (usersService: IUsersService) =>
         new GetUserUseCase(usersService),
       inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
     },
     {
       provide: CONSTANT.USE_CASES.UPDATE_USER,
-      useFactory: (usersService: IUserService) =>
+      useFactory: (usersService: IUsersService) =>
         new UpdateUserUseCase(usersService),
       inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
     },

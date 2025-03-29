@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IUserService } from '../../domain/interfaces/service/users.service.interface';
+import { IUsersService } from '../../domain/interfaces/service/users.service.interface';
 import {
   IUser,
   ISaveUser,
@@ -11,7 +11,7 @@ import { Repository } from 'typeorm';
 import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
 
 @Injectable()
-export class UsersService implements IUserService {
+export class UsersService implements IUsersService {
   constructor(
     @InjectRepository(User) private readonly _userRepository: Repository<User>,
   ) {}

@@ -4,7 +4,7 @@ import {
   IUpdateUser,
 } from '../entity/users.entity.interface';
 
-export interface IUserService {
+export interface IUsersService {
   getAll(): Promise<IUser[]>;
   get(id: IUser['id']): Promise<IUser>;
   save(user: ISaveUser): Promise<IUser>;

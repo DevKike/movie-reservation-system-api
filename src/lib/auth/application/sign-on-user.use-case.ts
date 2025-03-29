@@ -1,4 +1,4 @@
-import { IUserService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
+import { IUsersService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
 import {
   ISignOn,
   ISignOnRes,
@@ -14,7 +14,7 @@ export class SignOnUserUseCase implements IAuthUseCase<ISignOnRes, ISignOn> {
   constructor(
     private readonly _authService: IAuthService,
     private readonly _rolesService: IRolesService,
-    private readonly _usersService: IUserService,
+    private readonly _usersService: IUsersService,
     private readonly _hashService: IHashService,
   ) {}
 

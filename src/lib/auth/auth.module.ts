@@ -7,7 +7,7 @@ import { AuthController } from './infrastructure/controller/auth.controller';
 import { IAuthService } from './domain/interfaces/service/auth.service.interface';
 import { SignOnAdminUseCase } from './application/sign-on-admin.use-case';
 import { UsersModule } from '../users/users.module';
-import { IUserService } from '../users/domain/interfaces/service/users.service.interface';
+import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
 import { IHashService } from '../common/domain/services/interfaces/hash/hash.provider.interface';
@@ -32,7 +32,7 @@ import { SignOnUserUseCase } from './application/sign-on-user.use-case';
       useFactory: (
         authService: IAuthService,
         rolesService: IRolesService,
-        usersService: IUserService,
+        usersService: IUsersService,
         hashService: IHashService,
       ) =>
         new SignOnAdminUseCase(
@@ -53,7 +53,7 @@ import { SignOnUserUseCase } from './application/sign-on-user.use-case';
       useFactory: (
         authService: IAuthService,
         rolesService: IRolesService,
-        usersService: IUserService,
+        usersService: IUsersService,
         hashService: IHashService,
       ) =>
         new SignOnUserUseCase(
