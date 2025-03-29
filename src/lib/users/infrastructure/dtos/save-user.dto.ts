@@ -6,7 +6,7 @@ import {
 } from 'class-validator';
 import { ISaveUser } from '../../domain/interfaces/entity/users.entity.interface';
 
-export class SaveUserDTO implements ISaveUser {
+export class SaveUserDTO implements Omit<ISaveUser, 'role'> {
   @IsNotEmpty()
   @IsString()
   name: string;
