@@ -16,7 +16,9 @@ export interface ISaveAuth
   extends Omit<IAuth, 'id' | 'createdAt' | 'updatedAt'> {}
 
 export interface IAuthCredentials extends Pick<IAuth, 'email' | 'password'> {}
+export interface ISignInRes {
+  token: string;
+}
 
 export interface ISignOn extends ISaveUser, IAuthCredentials {}
-
 export interface ISignOnRes extends Omit<IAuth, 'password'> {}

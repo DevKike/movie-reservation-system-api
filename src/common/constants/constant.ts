@@ -9,6 +9,7 @@ export const CONSTANT = {
     //AUTH
     AUTH_SERVICE: 'AuthService',
     HASH_SERVICE: 'HashService',
+    JWT_SERVICE: 'JwtProvider',
   },
 
   USE_CASES: {
@@ -23,5 +24,6 @@ export const CONSTANT = {
     //AUTH
     SIGN_ON_ADMIN: 'SignOnAdminUseCase',
     SIGN_ON_USER: 'SignOnUserUseCase',
+    SIGN_IN: 'SignInUseCase',
   },
 };

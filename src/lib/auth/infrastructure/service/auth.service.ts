@@ -17,7 +17,10 @@ export class AuthService implements IAuthService {
   ) {}
 
   async getByEmail(email: IAuth['email']): Promise<IAuth | null> {
-    const auth = await this._authRepository.findOne({ where: { email } });
+    const auth = await this._authRepository.findOne({
+      where: { email },
+      relations: ['user', 'user.role'],
+    });
 
     if (!auth) return null;
 
@@ -31,7 +34,7 @@ export class AuthService implements IAuthService {
   async validateUser(credentials: IAuthCredentials): Promise<IAuth> {
     const auth = await this._authRepository.findOne({
       where: { email: credentials.email },
-      relations: ['user'],
+      relations: ['user', 'user.role'],
     });
 
     if (!auth) throw new NotFoundException('User not found');

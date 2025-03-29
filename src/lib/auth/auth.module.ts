@@ -13,6 +13,8 @@ import { IRolesService } from '../roles/domain/interfaces/service/roles.service.
 import { IHashService } from '../common/domain/services/interfaces/hash/hash.service.interface';
 import { SharedModule } from 'src/shared/shared.module';
 import { SignOnUserUseCase } from './application/sign-on-user.use-case';
+import { SignInUseCase } from './application/sign-in-.use-case';
+import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.service.interface';
 
 @Module({
   imports: [
@@ -67,6 +69,19 @@ import { SignOnUserUseCase } from './application/sign-on-user.use-case';
         CONSTANT.PROVIDERS.ROLES_SERVICE,
         CONSTANT.PROVIDERS.USERS_SERVICE,
         CONSTANT.PROVIDERS.HASH_SERVICE,
+      ],
+    },
+    {
+      provide: CONSTANT.USE_CASES.SIGN_IN,
+      useFactory: (
+        authService: IAuthService,
+        hashService: IHashService,
+        jwtService: IJwtService,
+      ) => new SignInUseCase(authService, hashService, jwtService),
+      inject: [
+        CONSTANT.PROVIDERS.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.HASH_SERVICE,
+        CONSTANT.PROVIDERS.JWT_SERVICE,
       ],
     },
   ],
