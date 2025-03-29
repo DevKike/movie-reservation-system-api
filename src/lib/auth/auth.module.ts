@@ -12,6 +12,7 @@ import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
 import { IHashService } from '../common/domain/services/interfaces/hash/hash.provider.interface';
 import { SharedModule } from 'src/shared/shared.module';
+import { SignOnUserUseCase } from './application/sign-on-user.use-case';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { SharedModule } from 'src/shared/shared.module';
       useClass: AuthService,
     },
     {
-      provide: CONSTANT.USE_CASES.SIGN_IN_ADMIN,
+      provide: CONSTANT.USE_CASES.SIGN_ON_ADMIN,
       useFactory: (
         authService: IAuthService,
         rolesService: IRolesService,
@@ -35,6 +36,27 @@ import { SharedModule } from 'src/shared/shared.module';
         hashService: IHashService,
       ) =>
         new SignOnAdminUseCase(
+          authService,
+          rolesService,
+          usersService,
+          hashService,
+        ),
+      inject: [
+        CONSTANT.PROVIDERS.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.ROLES_SERVICE,
+        CONSTANT.PROVIDERS.USERS_SERVICE,
+        CONSTANT.PROVIDERS.HASH_SERVICE,
+      ],
+    },
+    {
+      provide: CONSTANT.USE_CASES.SIGN_ON_USER,
+      useFactory: (
+        authService: IAuthService,
+        rolesService: IRolesService,
+        usersService: IUserService,
+        hashService: IHashService,
+      ) =>
+        new SignOnUserUseCase(
           authService,
           rolesService,
           usersService,

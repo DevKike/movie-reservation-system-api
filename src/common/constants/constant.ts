@@ -21,6 +21,7 @@ export const CONSTANT = {
     GET_ALL_ROLES: 'GetAllRolesUseCase',
 
     //AUTH
-    SIGN_IN_ADMIN: 'SignInAdminUseCase',
+    SIGN_ON_ADMIN: 'SignOnAdminUseCase',
+    SIGN_ON_USER: 'SignOnUserUseCase',
   },
 };
