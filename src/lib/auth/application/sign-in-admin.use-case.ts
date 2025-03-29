@@ -7,6 +7,7 @@ import { IAuthService } from '../domain/interfaces/service/auth.service.interfac
 import { ROLES } from 'src/lib/roles/domain/enums/roles.enum';
 import { IRolesService } from 'src/lib/roles/domain/interfaces/service/roles.service.interface';
 import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interface';
+import { AlreadyExistsException } from 'src/lib/common/domain/exceptions/already-exists.exception';
 
 export class SignInAdminUseCase implements IAuthUseCase<IAuth, ISignIn> {
   constructor(
@@ -16,6 +17,10 @@ export class SignInAdminUseCase implements IAuthUseCase<IAuth, ISignIn> {
   ) {}
 
   async execute(input: ISignIn): Promise<IAuth> {
+    const auth = await this._authService.getByEmail(input.email);
+
+    if (auth) throw new AlreadyExistsException('Email already exists');
+
     const adminRole = await this._rolesService.get(ROLES.ADMIN);
 
     const userCreated = await this._usersService.save({

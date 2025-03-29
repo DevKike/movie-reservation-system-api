@@ -16,6 +16,14 @@ export class AuthService implements IAuthService {
     @InjectRepository(Auth) private readonly _authRepository: Repository<Auth>,
   ) {}
 
+  async getByEmail(email: IAuth['email']): Promise<IAuth | null> {
+    const auth = await this._authRepository.findOne({ where: { email } });
+
+    if (!auth) return null;
+
+    return auth;
+  }
+
   async save(data: ISaveAuth): Promise<IAuth> {
     return await this._authRepository.save(data);
   }
