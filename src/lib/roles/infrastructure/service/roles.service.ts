@@ -16,7 +16,7 @@ export class RolesService implements IRolesService {
   async getAll(): Promise<IRole[]> {
     const roles = await this._roleRepository.find();
 
-    if (!roles.length) throw new NotFoundException('Roles were not found');
+    if (roles.length === 0) throw new NotFoundException('Roles were not found');
 
     return roles;
   }
