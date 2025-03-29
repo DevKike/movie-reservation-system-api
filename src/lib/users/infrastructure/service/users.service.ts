@@ -13,11 +13,11 @@ import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.ex
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
-    @InjectRepository(User) private readonly _userRepository: Repository<User>,
+    @InjectRepository(User) private readonly _usersRepository: Repository<User>,
   ) {}
 
   async getAll(): Promise<IUser[]> {
-    const users = await this._userRepository.find();
+    const users = await this._usersRepository.find();
 
     if (!users.length) throw new NotFoundException('No users found');
 
@@ -25,7 +25,7 @@ export class UsersService implements IUsersService {
   }
 
   async get(id: IUser['id']): Promise<IUser> {
-    const user = await this._userRepository.findOneBy({ id });
+    const user = await this._usersRepository.findOneBy({ id });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
 
@@ -33,13 +33,13 @@ export class UsersService implements IUsersService {
   }
 
   async save(user: ISaveUser): Promise<IUser> {
-    return await this._userRepository.save(user);
+    return await this._usersRepository.save(user);
   }
 
   async update(id: IUser['id'], user: IUpdateUser): Promise<IUser> {
     await this.get(id);
 
-    await this._userRepository.update(id, user);
+    await this._usersRepository.update(id, user);
 
     return await this.get(id);
   }
