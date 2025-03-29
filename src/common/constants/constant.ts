@@ -5,6 +5,9 @@ export const CONSTANT = {
 
     //ROLES
     ROLES_SERVICE: 'RolesService',
+
+    //AUTH
+    AUTH_SERVICE: 'AuthService',
   },
 
   USE_CASES: {
@@ -15,5 +18,8 @@ export const CONSTANT = {
 
     //ROLES
     GET_ALL_ROLES: 'GetAllRolesUseCase',
+
+    //AUTH
+    SIGN_IN_ADMIN: 'SignInAdminUseCase',
   },
 };
