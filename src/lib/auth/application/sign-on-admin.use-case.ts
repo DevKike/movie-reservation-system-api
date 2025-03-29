@@ -1,7 +1,7 @@
 import { IUserService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
 import {
-  ISignIn,
-  ISignInRes,
+  ISignOn,
+  ISignOnRes,
 } from '../domain/interfaces/entity/auth.entity.interface';
 import { IAuthService } from '../domain/interfaces/service/auth.service.interface';
 import { ROLES } from 'src/lib/roles/domain/enums/roles.enum';
@@ -10,7 +10,7 @@ import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interf
 import { AlreadyExistsException } from 'src/lib/common/domain/exceptions/already-exists.exception';
 import { IHashService } from 'src/lib/common/domain/services/interfaces/hash/hash.provider.interface';
 
-export class SignInAdminUseCase implements IAuthUseCase<ISignInRes, ISignIn> {
+export class SignOnAdminUseCase implements IAuthUseCase<ISignOnRes, ISignOn> {
   constructor(
     private readonly _authService: IAuthService,
     private readonly _rolesService: IRolesService,
@@ -18,7 +18,7 @@ export class SignInAdminUseCase implements IAuthUseCase<ISignInRes, ISignIn> {
     private readonly _hashService: IHashService,
   ) {}
 
-  async execute(input: ISignIn): Promise<ISignInRes> {
+  async execute(input: ISignOn): Promise<ISignOnRes> {
     const authByEmail = await this._authService.getByEmail(input.email);
 
     if (authByEmail) throw new AlreadyExistsException('Email already exists');

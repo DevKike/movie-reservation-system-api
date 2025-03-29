@@ -17,6 +17,6 @@ export interface ISaveAuth
 
 export interface IAuthCredentials extends Pick<IAuth, 'email' | 'password'> {}
 
-export interface ISignIn extends ISaveUser, IAuthCredentials {}
+export interface ISignOn extends ISaveUser, IAuthCredentials {}
 
-export interface ISignInRes extends Omit<IAuth, 'password'> {}
+export interface ISignOnRes extends Omit<IAuth, 'password'> {}

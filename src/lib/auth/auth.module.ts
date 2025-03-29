@@ -5,7 +5,7 @@ import { Auth } from './infrastructure/entity/auth.entity';
 import { CONSTANT } from 'src/common/constants/constant';
 import { AuthController } from './infrastructure/controller/auth.controller';
 import { IAuthService } from './domain/interfaces/service/auth.service.interface';
-import { SignInAdminUseCase } from './application/sign-in-admin.use-case';
+import { SignOnAdminUseCase } from './application/sign-on-admin.use-case';
 import { UsersModule } from '../users/users.module';
 import { IUserService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
@@ -34,7 +34,7 @@ import { SharedModule } from 'src/shared/shared.module';
         usersService: IUserService,
         hashService: IHashService,
       ) =>
-        new SignInAdminUseCase(
+        new SignOnAdminUseCase(
           authService,
           rolesService,
           usersService,
