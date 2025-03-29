@@ -10,9 +10,16 @@ import { UsersModule } from '../users/users.module';
 import { IUserService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
+import { IHashService } from '../common/domain/services/interfaces/hash/hash.provider.interface';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Auth]), RolesModule, UsersModule],
+  imports: [
+    TypeOrmModule.forFeature([Auth]),
+    RolesModule,
+    UsersModule,
+    SharedModule,
+  ],
   controllers: [AuthController],
   providers: [
     {
@@ -25,11 +32,19 @@ import { IRolesService } from '../roles/domain/interfaces/service/roles.service.
         authService: IAuthService,
         rolesService: IRolesService,
         usersService: IUserService,
-      ) => new SignInAdminUseCase(authService, rolesService, usersService),
+        hashService: IHashService,
+      ) =>
+        new SignInAdminUseCase(
+          authService,
+          rolesService,
+          usersService,
+          hashService,
+        ),
       inject: [
         CONSTANT.PROVIDERS.AUTH_SERVICE,
         CONSTANT.PROVIDERS.ROLES_SERVICE,
         CONSTANT.PROVIDERS.USERS_SERVICE,
+        CONSTANT.PROVIDERS.HASH_SERVICE,
       ],
     },
   ],

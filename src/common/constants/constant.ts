@@ -8,6 +8,7 @@ export const CONSTANT = {
 
     //AUTH
     AUTH_SERVICE: 'AuthService',
+    HASH_SERVICE: 'HashService',
   },
 
   USE_CASES: {

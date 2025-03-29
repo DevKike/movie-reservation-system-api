@@ -1,25 +1,27 @@
 import { IUserService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
 import {
-  IAuth,
   ISignIn,
+  ISignInRes,
 } from '../domain/interfaces/entity/auth.entity.interface';
 import { IAuthService } from '../domain/interfaces/service/auth.service.interface';
 import { ROLES } from 'src/lib/roles/domain/enums/roles.enum';
 import { IRolesService } from 'src/lib/roles/domain/interfaces/service/roles.service.interface';
 import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interface';
 import { AlreadyExistsException } from 'src/lib/common/domain/exceptions/already-exists.exception';
+import { IHashService } from 'src/lib/common/domain/services/interfaces/hash/hash.provider.interface';
 
-export class SignInAdminUseCase implements IAuthUseCase<IAuth, ISignIn> {
+export class SignInAdminUseCase implements IAuthUseCase<ISignInRes, ISignIn> {
   constructor(
     private readonly _authService: IAuthService,
     private readonly _rolesService: IRolesService,
     private readonly _usersService: IUserService,
+    private readonly _hashService: IHashService,
   ) {}
 
-  async execute(input: ISignIn): Promise<IAuth> {
-    const auth = await this._authService.getByEmail(input.email);
+  async execute(input: ISignIn): Promise<ISignInRes> {
+    const authByEmail = await this._authService.getByEmail(input.email);
 
-    if (auth) throw new AlreadyExistsException('Email already exists');
+    if (authByEmail) throw new AlreadyExistsException('Email already exists');
 
     const adminRole = await this._rolesService.get(ROLES.ADMIN);
 
@@ -30,10 +32,16 @@ export class SignInAdminUseCase implements IAuthUseCase<IAuth, ISignIn> {
       role: adminRole,
     });
 
-    return this._authService.save({
+    const hashedPassword = await this._hashService.hash(input.password);
+
+    const createdAuth = await this._authService.save({
       email: input.email,
-      password: input.password,
+      password: hashedPassword,
       user: userCreated,
     });
+
+    const { password, ...authWithoutPassword } = createdAuth;
+
+    return authWithoutPassword;
   }
 }
