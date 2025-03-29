@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from './infrastructure/entity/roles.entity';
 import { RolesController } from './infrastructure/controller/roles.controller';
 import { CONSTANT } from 'src/common/constants/constant';
-import { IRoleService } from './domain/interfaces/service/roles.service.interface';
+import { IRolesService } from './domain/interfaces/service/roles.service.interface';
 import { GetAllRolesUseCase } from './application/get-all-roles.use.case';
 import { User } from '../users/infrastructure/entity/users.entity';
 
@@ -18,7 +18,7 @@ import { User } from '../users/infrastructure/entity/users.entity';
     },
     {
       provide: CONSTANT.USE_CASES.GET_ALL_ROLES,
-      useFactory: (rolesService: IRoleService) =>
+      useFactory: (rolesService: IRolesService) =>
         new GetAllRolesUseCase(rolesService),
       inject: [CONSTANT.PROVIDERS.ROLES_SERVICE],
     },

@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
 import { IRole } from '../../domain/interfaces/entity/roles.entity.interface';
 import { ROLES } from '../../domain/enums/roles.enum';
 
@@ -17,7 +18,7 @@ export class Role implements IRole {
   name: ROLES;
 
   @Column({ nullable: true })
-  description?: string;
+  description: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
