@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 import { User } from '../../lib/users/infrastructure/entity/users.entity';
 import { Auth } from 'src/lib/auth/infrastructure/entity/auth.entity';
+import { SeederModule } from './seeds/seeder.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { Auth } from 'src/lib/auth/infrastructure/entity/auth.entity';
       }),
       inject: [ConfigService],
     }),
+    SeederModule,
   ],
 })
 export class DatabaseModule {}
