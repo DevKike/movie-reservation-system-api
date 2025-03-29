@@ -1,0 +1,33 @@
+import { Injectable } from '@nestjs/common';
+import { IAuthService } from '../../domain/interfaces/service/auth.service.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Auth } from '../entity/auth.entity';
+import { Repository } from 'typeorm';
+import {
+  IAuth,
+  ISaveAuth,
+  IAuthCredentials,
+} from '../../domain/interfaces/entity/auth.entity.interface';
+import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
+
+@Injectable()
+export class AuthService implements IAuthService {
+  constructor(
+    @InjectRepository(Auth) private readonly _authRepository: Repository<Auth>,
+  ) {}
+
+  async save(data: ISaveAuth): Promise<IAuth> {
+    return await this._authRepository.save(data);
+  }
+
+  async validateUser(credentials: IAuthCredentials): Promise<IAuth> {
+    const auth = await this._authRepository.findOne({
+      where: { email: credentials.email },
+      relations: ['user'],
+    });
+
+    if (!auth) throw new NotFoundException('User not found');
+
+    return auth;
+  }
+}
