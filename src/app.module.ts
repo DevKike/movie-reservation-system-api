@@ -7,7 +7,14 @@ import { AuthModule } from './lib/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 
 @Module({
-  imports: [CoreModule, SeederModule, UsersModule, RolesModule, AuthModule, SharedModule],
+  imports: [
+    CoreModule,
+    SeederModule,
+    UsersModule,
+    RolesModule,
+    AuthModule,
+    SharedModule,
+  ],
   controllers: [],
 })
 export class AppModule {}
