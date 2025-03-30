@@ -17,6 +17,7 @@ export class RoleSeeder implements OnModuleInit {
   async onModuleInit() {
     try {
       const roles: IRoleCreate[] = [
+        { name: ROLES.ROOT },
         { name: ROLES.ADMIN },
         { name: ROLES.USER },
       ];
