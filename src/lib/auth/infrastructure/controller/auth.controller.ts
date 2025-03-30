@@ -9,6 +9,7 @@ import {
   ISignOnRes,
 } from '../../domain/interfaces/entity/auth.entity.interface';
 import { AuthCredentialsDTO } from '../dtos/auth-credentials.dto';
+import { Public } from '../decorators/auth/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -21,16 +22,19 @@ export class AuthController {
     private readonly _SignInUseCase: IAuthUseCase<ISignInRes, IAuthCredentials>,
   ) {}
 
+  @Public()
   @Post('sign-in')
   async signIn(@Body() data: AuthCredentialsDTO) {
     return await this._SignInUseCase.execute(data);
   }
 
+  @Public()
   @Post('admin/sign-on')
   async signOnAdmin(@Body() data: SignOnDTO) {
     return await this._SignOnAdminUseCase.execute(data);
   }
 
+  @Public()
   @Post('user/sign-on')
   async signOnUser(@Body() data: SignOnDTO) {
     return await this._SignOnUserUseCase.execute(data);

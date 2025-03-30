@@ -35,6 +35,6 @@ export class SignInUseCase
       role: auth.user.role.name,
     });
 
-    return { token };
+    return { access_token: token };
   }
 }
