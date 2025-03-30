@@ -27,4 +27,10 @@ export const CONSTANT = {
     SIGN_ON_USER: 'SignOnUserUseCase',
     SIGN_IN: 'SignInUseCase',
   },
+
+  KEYS: {
+    IS_PUBLIC: 'isPublic',
+    USER: 'user',
+    ROLE: 'role',
+  },
 };
