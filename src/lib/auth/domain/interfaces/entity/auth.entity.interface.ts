@@ -17,7 +17,7 @@ export interface ISaveAuth
 
 export interface IAuthCredentials extends Pick<IAuth, 'email' | 'password'> {}
 export interface ISignInRes {
-  access_token: string;
+  accessToken: string;
 }
 
 export interface ISignOn extends ISaveUser, IAuthCredentials {}
