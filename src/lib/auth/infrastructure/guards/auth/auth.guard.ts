@@ -9,7 +9,6 @@ import { Request } from 'express';
 import { CONSTANT } from 'src/common/constants/constant';
 import { UnauthorizedException } from 'src/lib/common/domain/exceptions/unauthorized.exception';
 import { JwtProvider } from 'src/shared/services/jwt/jwt.service';
-import { IS_PUBLIC_KEY } from '../../decorators/auth/auth.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -20,10 +19,10 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const isPublic = this._reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const isPublic = this._reflector.getAllAndOverride<boolean>(
+      CONSTANT.KEYS.IS_PUBLIC,
+      [context.getHandler(), context.getClass()],
+    );
 
     if (isPublic) return true;
 
@@ -36,7 +35,7 @@ export class AuthGuard implements CanActivate {
 
     try {
       const payload = await this._jwtService.verifyToken(token);
-      request['user'] = payload;
+      request[CONSTANT.KEYS.USER] = payload;
     } catch {
       throw new UnauthorizedException('Invalid authentication token');
     }
