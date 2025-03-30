@@ -36,6 +36,7 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
         return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           message: 'Internal server error',
+          timestamp: new Date().toISOString(),
         });
     }
   }
