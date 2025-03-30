@@ -10,6 +10,7 @@ export const CONSTANT = {
     AUTH_SERVICE: 'AuthService',
     HASH_SERVICE: 'HashService',
     JWT_SERVICE: 'JwtProvider',
+    APP_GUARD: 'APP_GUARD',
   },
 
   USE_CASES: {
