@@ -12,4 +12,5 @@ export const environmentSchema = Joi.object({
   DB_NAME: Joi.string().required(),
   HASH_SALT_ROUNDS: Joi.number().default(10),
   JWT_SECRET_KEY: Joi.string().required(),
+  JWT_EXPIRES_IN: Joi.string().default('1d'),
 });
