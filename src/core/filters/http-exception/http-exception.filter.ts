@@ -19,7 +19,7 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
       case exception instanceof HttpException:
         return response.status(exception.getStatus()).json({
           statusCode: exception.getStatus(),
-          message: exception.getResponse(),
+          message: exception.message,
           timestamp: new Date().toISOString(),
           path: request.url,
         });
