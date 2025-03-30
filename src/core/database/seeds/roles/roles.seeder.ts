@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SEED_MESSAGES } from 'src/common/constants/seed-messages.constant';
-import { ROLES } from 'src/lib/roles/domain/enums/roles.enum';
+import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
 import { IRoleCreate } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 import { Repository } from 'typeorm';
@@ -17,9 +17,9 @@ export class RoleSeeder implements OnModuleInit {
   async onModuleInit() {
     try {
       const roles: IRoleCreate[] = [
-        { name: ROLES.ROOT },
-        { name: ROLES.ADMIN },
-        { name: ROLES.USER },
+        { name: ROLE.ROOT },
+        { name: ROLE.ADMIN },
+        { name: ROLE.USER },
       ];
 
       const existingRoles = await this._roleRepository.find();

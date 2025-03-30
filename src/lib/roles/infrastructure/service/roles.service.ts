@@ -5,7 +5,7 @@ import { Role } from '../entity/roles.entity';
 import { Repository } from 'typeorm';
 import { IRole } from '../../domain/interfaces/entity/roles.entity.interface';
 import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
-import { ROLES } from '../../domain/enums/roles.enum';
+import { ROLE } from '../../domain/enums/roles.enum';
 
 @Injectable()
 export class RolesService implements IRolesService {
@@ -21,7 +21,7 @@ export class RolesService implements IRolesService {
     return roles;
   }
 
-  async get(name: ROLES): Promise<IRole> {
+  async get(name: ROLE): Promise<IRole> {
     const role = await this._roleRepository.findOne({ where: { name: name } });
 
     if (!role) throw new NotFoundException('Role was not found');
