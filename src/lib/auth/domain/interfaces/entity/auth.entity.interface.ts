@@ -7,18 +7,34 @@ export interface IAuth {
   id: number;
   email: string;
   password: string;
+  refreshToken: string;
+  refreshTokenExpiresIn: Date;
+  lastSignIn: Date;
   createdAt: Date;
   updatedAt: Date;
   user: IUser;
 }
 
 export interface ISaveAuth
-  extends Omit<IAuth, 'id' | 'createdAt' | 'updatedAt'> {}
+  extends Omit<
+    IAuth,
+    | 'id'
+    | 'refreshToken'
+    | 'refreshTokenExpiresIn'
+    | 'lastSignIn'
+    | 'createdAt'
+    | 'updatedAt'
+  > {}
+
+export interface IUpdateAuth extends Partial<Omit<IAuth, 'user'>> {}
 
 export interface IAuthCredentials extends Pick<IAuth, 'email' | 'password'> {}
+
 export interface ISignInRes {
   accessToken: string;
+  refreshToken: string;
 }
 
 export interface ISignOn extends ISaveUser, IAuthCredentials {}
+
 export interface ISignOnRes extends Omit<IAuth, 'password'> {}

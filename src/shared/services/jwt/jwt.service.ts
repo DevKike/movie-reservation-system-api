@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { IJwtPayload } from 'src/lib/common/domain/services/interfaces/jwt/jwt-payload.interface';
+import { IBaseJwtPayload } from 'src/lib/common/domain/services/interfaces/jwt/jwt-payload.interface';
 import { IJwtService } from 'src/lib/common/domain/services/interfaces/jwt/jwt.service.interface';
 
 @Injectable()
@@ -11,14 +11,14 @@ export class JwtProvider implements IJwtService {
     private readonly _configService: ConfigService,
   ) {}
 
-  async signToken(payload: IJwtPayload): Promise<string> {
+  async signToken<T extends IBaseJwtPayload>(payload: T): Promise<string> {
     return await this._jwtService.signAsync(payload, {
       secret: this._configService.get<string>('JWT_SECRET_KEY'),
       expiresIn: this._configService.get<string>('JWT_EXPIRES_IN'),
     });
   }
 
-  async verifyToken(token: string): Promise<IJwtPayload> {
+  async verifyToken<T extends IBaseJwtPayload>(token: string): Promise<T> {
     return await this._jwtService.verifyAsync(token, {
       secret: this._configService.get<string>('JWT_SECRET_KEY'),
     });

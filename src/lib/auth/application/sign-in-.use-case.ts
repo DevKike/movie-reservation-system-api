@@ -30,11 +30,13 @@ export class SignInUseCase
     if (!isPasswordValid) throw new BadRequestException('Invalid credentials');
 
     const accessToken = await this._jwtService.signToken({
-      id: auth.id,
+      sub: auth.id,
       email: auth.email,
       role: auth.user.role.name,
     });
 
-    return { accessToken };
+    const refreshToken = await this._jwtService.signToken({ sub: auth.id });
+
+    return { accessToken, refreshToken };
   }
 }

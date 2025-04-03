@@ -22,6 +22,15 @@ export class Auth implements IAuth {
   @Column()
   password: string;
 
+  @Column({ name: 'refresh_token', nullable: true })
+  refreshToken: string;
+
+  @Column({ name: 'refresh_token_expires_in', nullable: true })
+  refreshTokenExpiresIn: Date;
+
+  @Column({ name: 'last_sign_in', nullable: true })
+  lastSignIn: Date;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

@@ -7,6 +7,7 @@ import {
   IAuth,
   ISaveAuth,
   IAuthCredentials,
+  IUpdateAuth,
 } from '../../domain/interfaces/entity/auth.entity.interface';
 import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
 
@@ -15,6 +16,17 @@ export class AuthService implements IAuthService {
   constructor(
     @InjectRepository(Auth) private readonly _authRepository: Repository<Auth>,
   ) {}
+
+  async getById(id: IAuth['id']): Promise<IAuth> {
+    const auth = await this._authRepository.findOne({
+      where: { id },
+      relations: ['user', 'user.role'],
+    });
+
+    if (!auth) throw new NotFoundException('User not found');
+
+    return auth;
+  }
 
   async getByEmail(email: IAuth['email']): Promise<IAuth | null> {
     const auth = await this._authRepository.findOne({
@@ -40,5 +52,15 @@ export class AuthService implements IAuthService {
     if (!auth) throw new NotFoundException('User not found');
 
     return auth;
+  }
+
+  async update(id: IAuth['id'], data: IUpdateAuth): Promise<IAuth> {
+    const auth = await this.getById(id);
+
+    const updatedAuth = await this._authRepository.update(auth.id, data);
+
+    if (!updatedAuth) throw new NotFoundException('User not found');
+
+    return await this.getById(auth.id);
   }
 }
