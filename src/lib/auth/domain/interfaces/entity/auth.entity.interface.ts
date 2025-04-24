@@ -30,9 +30,17 @@ export interface IUpdateAuth extends Partial<Omit<IAuth, 'user'>> {}
 
 export interface IAuthCredentials extends Pick<IAuth, 'email' | 'password'> {}
 
-export interface ISignInRes {
+export interface IAuthTokens {
   accessToken: string;
   refreshToken: string;
+}
+
+export interface ISignInRes {
+  tokens: IAuthTokens;
+  user: Pick<IUser, 'id' | 'name' | 'lastName'> & {
+    email: string;
+    role: string;
+  };
 }
 
 export interface ISignUp extends ISaveUser, IAuthCredentials {}

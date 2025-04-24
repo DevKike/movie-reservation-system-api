@@ -37,6 +37,15 @@ export class SignInUseCase
 
     const refreshToken = await this._jwtService.signToken({ sub: auth.id });
 
-    return { accessToken, refreshToken };
+    return {
+      tokens: { accessToken, refreshToken },
+      user: {
+        id: auth.user.id,
+        name: auth.user.name,
+        lastName: auth.user.lastName,
+        email: auth.email,
+        role: auth.user.role.name,
+      },
+    };
   }
 }
