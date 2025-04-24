@@ -1,12 +1,12 @@
 import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
-import { UserStatus } from '../../enums/user-status.enum';
+import { UsersStatus } from '../../enums/users-status.enum';
 
 export interface IUser {
   id: number;
   name: string;
   lastName: string;
   phoneNumber?: string;
-  status: UserStatus;
+  status: UsersStatus;
   createdAt: Date;
   updatedAt: Date;
   role: IRole;
