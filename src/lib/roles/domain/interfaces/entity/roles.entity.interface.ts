@@ -10,3 +10,7 @@ export interface IRole {
 
 export interface IRoleCreate
   extends Omit<IRole, 'id' | 'createdAt' | 'updatedAt'> {}
+
+export interface IGetRolesRes {
+  roles: IRole[];
+}
