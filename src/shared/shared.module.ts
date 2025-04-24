@@ -5,8 +5,8 @@ import { JwtProvider } from './services/jwt/jwt.service';
 import { JwtModule } from '@nestjs/jwt';
 
 const providers = [
-  { provide: CONSTANT.PROVIDERS.HASH_SERVICE, useClass: HashService },
-  { provide: CONSTANT.PROVIDERS.JWT_SERVICE, useClass: JwtProvider },
+  { provide: CONSTANT.PROVIDERS.AUTH.HASH_SERVICE, useClass: HashService },
+  { provide: CONSTANT.PROVIDERS.AUTH.JWT_SERVICE, useClass: JwtProvider },
 ];
 
 @Module({

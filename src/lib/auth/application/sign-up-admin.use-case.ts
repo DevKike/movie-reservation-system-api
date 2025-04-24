@@ -1,7 +1,7 @@
 import { IUsersService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
 import {
-  ISignOn,
-  ISignOnRes,
+  ISignUp,
+  ISignUpRes,
 } from '../domain/interfaces/entity/auth.entity.interface';
 import { IAuthService } from '../domain/interfaces/service/auth.service.interface';
 import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
@@ -10,7 +10,7 @@ import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interf
 import { AlreadyExistsException } from 'src/lib/common/domain/exceptions/already-exists.exception';
 import { IHashService } from 'src/lib/common/domain/services/interfaces/hash/hash.service.interface';
 
-export class SignOnUserUseCase implements IAuthUseCase<ISignOnRes, ISignOn> {
+export class SignOnAdminUseCase implements IAuthUseCase<ISignUpRes, ISignUp> {
   constructor(
     private readonly _authService: IAuthService,
     private readonly _rolesService: IRolesService,
@@ -18,18 +18,27 @@ export class SignOnUserUseCase implements IAuthUseCase<ISignOnRes, ISignOn> {
     private readonly _hashService: IHashService,
   ) {}
 
-  async execute(input: ISignOn): Promise<ISignOnRes> {
+  async execute(input: ISignUp): Promise<ISignUpRes> {
     const authByEmail = await this._authService.getByEmail(input.email);
 
     if (authByEmail) throw new AlreadyExistsException('Email already exists');
 
-    const userRole = await this._rolesService.get(ROLE.USER);
+    if (input.phoneNumber) {
+      const authByPhoneNumber = await this._usersService.getByPhoneNumber(
+        input.phoneNumber,
+      );
+
+      if (authByPhoneNumber)
+        throw new AlreadyExistsException('Phone number already exists');
+    }
+
+    const adminRole = await this._rolesService.get(ROLE.ADMIN);
 
     const userCreated = await this._usersService.save({
       name: input.name,
       lastName: input.lastName,
       phoneNumber: input.phoneNumber,
-      role: userRole,
+      role: adminRole,
     });
 
     const hashedPassword = await this._hashService.hash(input.password);
@@ -42,6 +51,6 @@ export class SignOnUserUseCase implements IAuthUseCase<ISignOnRes, ISignOn> {
 
     const { password, ...authWithoutPassword } = createdAuth;
 
-    return authWithoutPassword;
+    return { auth: authWithoutPassword };
   }
 }

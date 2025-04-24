@@ -32,6 +32,10 @@ export class UsersService implements IUsersService {
     return user;
   }
 
+  async getByPhoneNumber(phoneNumber: string): Promise<IUser | null> {
+    return await this._usersRepository.findOneBy({ phoneNumber });
+  }
+
   async save(user: ISaveUser): Promise<IUser> {
     return await this._usersRepository.save(user);
   }

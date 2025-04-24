@@ -11,11 +11,11 @@ import { RolesGuard } from './lib/auth/infrastructure/guards/roles/roles.guard';
 @Module({
   providers: [
     {
-      provide: CONSTANT.PROVIDERS.APP_GUARD,
+      provide: CONSTANT.PROVIDERS.AUTH.APP_GUARD,
       useClass: AuthGuard,
     },
     {
-      provide: CONSTANT.PROVIDERS.APP_GUARD,
+      provide: CONSTANT.PROVIDERS.AUTH.APP_GUARD,
       useClass: RolesGuard,
     },
   ],

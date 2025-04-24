@@ -18,11 +18,11 @@ import { CONSTANT } from 'src/common/constants/constant';
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(CONSTANT.USE_CASES.GET_ALL_USERS)
+    @Inject(CONSTANT.USE_CASES.USER.GET_ALL_USERS)
     private readonly _getAllUsersUseCase: IUsersUseCase<IUser[]>,
-    @Inject(CONSTANT.USE_CASES.GET_USER)
+    @Inject(CONSTANT.USE_CASES.USER.GET_USER)
     private readonly _getUserUseCase: IUsersUseCase<IUser, IUser['id']>,
-    @Inject(CONSTANT.USE_CASES.UPDATE_USER)
+    @Inject(CONSTANT.USE_CASES.USER.UPDATE_USER)
     private readonly _updateUserUseCase: IUsersUseCase<
       IUser,
       IUser['id'],

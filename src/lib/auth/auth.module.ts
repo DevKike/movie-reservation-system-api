@@ -5,14 +5,14 @@ import { Auth } from './infrastructure/entity/auth.entity';
 import { CONSTANT } from 'src/common/constants/constant';
 import { AuthController } from './infrastructure/controller/auth.controller';
 import { IAuthService } from './domain/interfaces/service/auth.service.interface';
-import { SignOnAdminUseCase } from './application/sign-on-admin.use-case';
+import { SignOnAdminUseCase } from './application/sign-up-admin.use-case';
 import { UsersModule } from '../users/users.module';
 import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
 import { IHashService } from '../common/domain/services/interfaces/hash/hash.service.interface';
 import { SharedModule } from 'src/shared/shared.module';
-import { SignOnUserUseCase } from './application/sign-on-user.use-case';
+import { SignOnUserUseCase } from './application/sign-up-user.use-case';
 import { SignInUseCase } from './application/sign-in-.use-case';
 import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.service.interface';
 
@@ -26,11 +26,11 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
   controllers: [AuthController],
   providers: [
     {
-      provide: CONSTANT.PROVIDERS.AUTH_SERVICE,
+      provide: CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
       useClass: AuthService,
     },
     {
-      provide: CONSTANT.USE_CASES.SIGN_ON_ADMIN,
+      provide: CONSTANT.USE_CASES.AUTH.SIGN_UP_ADMIN,
       useFactory: (
         authService: IAuthService,
         rolesService: IRolesService,
@@ -44,14 +44,14 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
           hashService,
         ),
       inject: [
-        CONSTANT.PROVIDERS.AUTH_SERVICE,
-        CONSTANT.PROVIDERS.ROLES_SERVICE,
-        CONSTANT.PROVIDERS.USERS_SERVICE,
-        CONSTANT.PROVIDERS.HASH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE,
+        CONSTANT.PROVIDERS.USER.USERS_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_SERVICE,
       ],
     },
     {
-      provide: CONSTANT.USE_CASES.SIGN_ON_USER,
+      provide: CONSTANT.USE_CASES.AUTH.SIGN_UP_USER,
       useFactory: (
         authService: IAuthService,
         rolesService: IRolesService,
@@ -65,26 +65,26 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
           hashService,
         ),
       inject: [
-        CONSTANT.PROVIDERS.AUTH_SERVICE,
-        CONSTANT.PROVIDERS.ROLES_SERVICE,
-        CONSTANT.PROVIDERS.USERS_SERVICE,
-        CONSTANT.PROVIDERS.HASH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE,
+        CONSTANT.PROVIDERS.USER.USERS_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_SERVICE,
       ],
     },
     {
-      provide: CONSTANT.USE_CASES.SIGN_IN,
+      provide: CONSTANT.USE_CASES.AUTH.SIGN_IN,
       useFactory: (
         authService: IAuthService,
         hashService: IHashService,
         jwtService: IJwtService,
       ) => new SignInUseCase(authService, hashService, jwtService),
       inject: [
-        CONSTANT.PROVIDERS.AUTH_SERVICE,
-        CONSTANT.PROVIDERS.HASH_SERVICE,
-        CONSTANT.PROVIDERS.JWT_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.JWT_SERVICE,
       ],
     },
   ],
-  exports: [CONSTANT.PROVIDERS.AUTH_SERVICE],
+  exports: [CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE],
 })
 export class AuthModule {}

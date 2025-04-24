@@ -8,7 +8,7 @@ import { ROLE } from '../../domain/enums/roles.enum';
 @Controller('roles')
 export class RolesController {
   constructor(
-    @Inject(CONSTANT.USE_CASES.GET_ALL_ROLES)
+    @Inject(CONSTANT.USE_CASES.ROLE.GET_ALL_ROLES)
     private readonly _getAllRolesUseCase: IRolesUseCase<IRole[]>,
   ) {}
 

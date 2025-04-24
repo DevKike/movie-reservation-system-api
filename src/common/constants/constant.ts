@@ -1,31 +1,35 @@
 export const CONSTANT = {
   PROVIDERS: {
-    //USERS
-    USERS_SERVICE: 'UsersService',
-
-    //ROLES
-    ROLES_SERVICE: 'RolesService',
-
-    //AUTH
-    AUTH_SERVICE: 'AuthService',
-    HASH_SERVICE: 'HashService',
-    JWT_SERVICE: 'JwtProvider',
-    APP_GUARD: 'APP_GUARD',
+    USER: {
+      USERS_SERVICE: 'UsersService',
+    },
+    ROLE: {
+      ROLES_SERVICE: 'RolesService',
+    },
+    AUTH: {
+      AUTH_SERVICE: 'AuthService',
+      HASH_SERVICE: 'HashService',
+      JWT_SERVICE: 'JwtProvider',
+      APP_GUARD: 'APP_GUARD',
+    },
   },
 
   USE_CASES: {
-    //USERS
-    GET_ALL_USERS: 'GetAllUsersUseCase',
-    GET_USER: 'GetUserUseCase',
-    UPDATE_USER: 'UpdateUserUseCase',
+    USER: {
+      GET_ALL_USERS: 'GetAllUsersUseCase',
+      GET_USER: 'GetUserUseCase',
+      UPDATE_USER: 'UpdateUserUseCase',
+    },
 
-    //ROLES
-    GET_ALL_ROLES: 'GetAllRolesUseCase',
+    ROLE: {
+      GET_ALL_ROLES: 'GetAllRolesUseCase',
+    },
 
-    //AUTH
-    SIGN_ON_ADMIN: 'SignOnAdminUseCase',
-    SIGN_ON_USER: 'SignOnUserUseCase',
-    SIGN_IN: 'SignInUseCase',
+    AUTH: {
+      SIGN_UP_ADMIN: 'SignUpAdminUseCase',
+      SIGN_UP_USER: 'SignUpUserUseCase',
+      SIGN_IN: 'SignInUseCase',
+    },
   },
 
   KEYS: {

@@ -13,16 +13,16 @@ import { User } from '../users/infrastructure/entity/users.entity';
   controllers: [RolesController],
   providers: [
     {
-      provide: CONSTANT.PROVIDERS.ROLES_SERVICE,
+      provide: CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE,
       useClass: RolesService,
     },
     {
-      provide: CONSTANT.USE_CASES.GET_ALL_ROLES,
+      provide: CONSTANT.USE_CASES.ROLE.GET_ALL_ROLES,
       useFactory: (rolesService: IRolesService) =>
         new GetAllRolesUseCase(rolesService),
-      inject: [CONSTANT.PROVIDERS.ROLES_SERVICE],
+      inject: [CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE],
     },
   ],
-  exports: [CONSTANT.PROVIDERS.ROLES_SERVICE],
+  exports: [CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE],
 })
 export class RolesModule {}

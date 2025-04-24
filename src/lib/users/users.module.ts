@@ -14,28 +14,28 @@ import { CONSTANT } from 'src/common/constants/constant';
   controllers: [UsersController],
   providers: [
     {
-      provide: CONSTANT.PROVIDERS.USERS_SERVICE,
+      provide: CONSTANT.PROVIDERS.USER.USERS_SERVICE,
       useClass: UsersService,
     },
     {
-      provide: CONSTANT.USE_CASES.GET_ALL_USERS,
+      provide: CONSTANT.USE_CASES.USER.GET_ALL_USERS,
       useFactory: (usersService: IUsersService) =>
         new GetAllUsersUseCase(usersService),
-      inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
+      inject: [CONSTANT.PROVIDERS.USER.USERS_SERVICE],
     },
     {
-      provide: CONSTANT.USE_CASES.GET_USER,
+      provide: CONSTANT.USE_CASES.USER.GET_USER,
       useFactory: (usersService: IUsersService) =>
         new GetUserUseCase(usersService),
-      inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
+      inject: [CONSTANT.PROVIDERS.USER.USERS_SERVICE],
     },
     {
-      provide: CONSTANT.USE_CASES.UPDATE_USER,
+      provide: CONSTANT.USE_CASES.USER.UPDATE_USER,
       useFactory: (usersService: IUsersService) =>
         new UpdateUserUseCase(usersService),
-      inject: [CONSTANT.PROVIDERS.USERS_SERVICE],
+      inject: [CONSTANT.PROVIDERS.USER.USERS_SERVICE],
     },
   ],
-  exports: [CONSTANT.PROVIDERS.USERS_SERVICE],
+  exports: [CONSTANT.PROVIDERS.USER.USERS_SERVICE],
 })
 export class UsersModule {}

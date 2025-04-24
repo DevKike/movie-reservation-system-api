@@ -13,7 +13,7 @@ import { JwtProvider } from 'src/shared/services/jwt/jwt.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    @Inject(CONSTANT.PROVIDERS.JWT_SERVICE)
+    @Inject(CONSTANT.PROVIDERS.AUTH.JWT_SERVICE)
     private readonly _jwtService: JwtProvider,
     private readonly _reflector: Reflector,
   ) {}

@@ -35,6 +35,8 @@ export interface ISignInRes {
   refreshToken: string;
 }
 
-export interface ISignOn extends ISaveUser, IAuthCredentials {}
+export interface ISignUp extends ISaveUser, IAuthCredentials {}
 
-export interface ISignOnRes extends Omit<IAuth, 'password'> {}
+export interface ISignUpRes {
+  auth: Omit<IAuth, 'password'>;
+}
