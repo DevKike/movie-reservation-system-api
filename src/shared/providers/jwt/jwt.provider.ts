@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { IBaseJwtPayload } from 'src/lib/common/domain/services/interfaces/jwt/jwt-payload.interface';
-import { IJwtService } from 'src/lib/common/domain/services/interfaces/jwt/jwt.service.interface';
+import { IBaseJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
+import { IJwtProvider } from 'src/lib/common/domain/providers/interfaces/jwt/jwt.provider.interface';
 
 @Injectable()
-export class JwtProvider implements IJwtService {
+export class JwtProvider implements IJwtProvider {
   constructor(
     private readonly _jwtService: JwtService,
     private readonly _configService: ConfigService,

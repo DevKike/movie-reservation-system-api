@@ -8,13 +8,13 @@ import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { CONSTANT } from 'src/common/constants/constant';
 import { UnauthorizedException } from 'src/lib/common/domain/exceptions/unauthorized.exception';
-import { JwtProvider } from 'src/shared/services/jwt/jwt.service';
+import { JwtProvider } from 'src/shared/providers/jwt/jwt.provider';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    @Inject(CONSTANT.PROVIDERS.AUTH.JWT_SERVICE)
-    private readonly _jwtService: JwtProvider,
+    @Inject(CONSTANT.PROVIDERS.AUTH.JWT_PROVIDER)
+    private readonly _jwtProvider: JwtProvider,
     private readonly _reflector: Reflector,
   ) {}
 
@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      const payload = await this._jwtService.verifyToken(token);
+      const payload = await this._jwtProvider.verifyToken(token);
       request[CONSTANT.KEYS.USER] = payload;
     } catch {
       throw new UnauthorizedException('Invalid authentication token');

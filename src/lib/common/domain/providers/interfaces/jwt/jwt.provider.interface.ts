@@ -1,6 +1,6 @@
 import { IBaseJwtPayload } from './jwt-payload.interface';
 
-export interface IJwtService {
+export interface IJwtProvider {
   signToken<T extends IBaseJwtPayload>(
     payload: T,
     expiresIn?: string,

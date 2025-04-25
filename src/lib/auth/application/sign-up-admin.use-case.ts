@@ -8,14 +8,14 @@ import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
 import { IRolesService } from 'src/lib/roles/domain/interfaces/service/roles.service.interface';
 import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interface';
 import { AlreadyExistsException } from 'src/lib/common/domain/exceptions/already-exists.exception';
-import { IHashService } from 'src/lib/common/domain/services/interfaces/hash/hash.service.interface';
+import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
 
 export class SignOnAdminUseCase implements IAuthUseCase<ISignUpRes, ISignUp> {
   constructor(
     private readonly _authService: IAuthService,
     private readonly _rolesService: IRolesService,
     private readonly _usersService: IUsersService,
-    private readonly _hashService: IHashService,
+    private readonly _hashProvider: IHashProvider,
   ) {}
 
   async execute(input: ISignUp): Promise<ISignUpRes> {
@@ -41,7 +41,7 @@ export class SignOnAdminUseCase implements IAuthUseCase<ISignUpRes, ISignUp> {
       role: adminRole,
     });
 
-    const hashedPassword = await this._hashService.hash(input.password);
+    const hashedPassword = await this._hashProvider.hash(input.password);
 
     const createdAuth = await this._authService.save({
       email: input.email,

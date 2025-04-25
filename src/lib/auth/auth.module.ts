@@ -10,11 +10,11 @@ import { UsersModule } from '../users/users.module';
 import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
-import { IHashService } from '../common/domain/services/interfaces/hash/hash.service.interface';
+import { IHashProvider } from '../common/domain/providers/interfaces/hash/hash.provider.interface';
 import { SharedModule } from 'src/shared/shared.module';
 import { SignOnUserUseCase } from './application/sign-up-user.use-case';
 import { SignInUseCase } from './application/sign-in-.use-case';
-import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.service.interface';
+import { IJwtProvider } from '../common/domain/providers/interfaces/jwt/jwt.provider.interface';
 
 @Module({
   imports: [
@@ -35,7 +35,7 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
         authService: IAuthService,
         rolesService: IRolesService,
         usersService: IUsersService,
-        hashService: IHashService,
+        hashService: IHashProvider,
       ) =>
         new SignOnAdminUseCase(
           authService,
@@ -47,7 +47,7 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
         CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
         CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE,
         CONSTANT.PROVIDERS.USER.USERS_SERVICE,
-        CONSTANT.PROVIDERS.AUTH.HASH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,
       ],
     },
     {
@@ -56,7 +56,7 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
         authService: IAuthService,
         rolesService: IRolesService,
         usersService: IUsersService,
-        hashService: IHashService,
+        hashService: IHashProvider,
       ) =>
         new SignOnUserUseCase(
           authService,
@@ -68,20 +68,20 @@ import { IJwtService } from '../common/domain/services/interfaces/jwt/jwt.servic
         CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
         CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE,
         CONSTANT.PROVIDERS.USER.USERS_SERVICE,
-        CONSTANT.PROVIDERS.AUTH.HASH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,
       ],
     },
     {
       provide: CONSTANT.USE_CASES.AUTH.SIGN_IN,
       useFactory: (
         authService: IAuthService,
-        hashService: IHashService,
-        jwtService: IJwtService,
+        hashService: IHashProvider,
+        jwtService: IJwtProvider,
       ) => new SignInUseCase(authService, hashService, jwtService),
       inject: [
         CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
-        CONSTANT.PROVIDERS.AUTH.HASH_SERVICE,
-        CONSTANT.PROVIDERS.AUTH.JWT_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,
+        CONSTANT.PROVIDERS.AUTH.JWT_PROVIDER,
       ],
     },
   ],

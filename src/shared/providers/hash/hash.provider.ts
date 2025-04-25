@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { IHashService } from 'src/lib/common/domain/services/interfaces/hash/hash.service.interface';
+import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class HashService implements IHashService {
+export class HashProvider implements IHashProvider {
   constructor(private readonly _configService: ConfigService) {}
 
   async hash(data: string): Promise<string> {

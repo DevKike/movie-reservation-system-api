@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { HashService } from './services/hash/hash.service';
+import { HashProvider } from './providers/hash/hash.provider';
 import { CONSTANT } from 'src/common/constants/constant';
-import { JwtProvider } from './services/jwt/jwt.service';
+import { JwtProvider } from './providers/jwt/jwt.provider';
 import { JwtModule } from '@nestjs/jwt';
 
 const providers = [
-  { provide: CONSTANT.PROVIDERS.AUTH.HASH_SERVICE, useClass: HashService },
-  { provide: CONSTANT.PROVIDERS.AUTH.JWT_SERVICE, useClass: JwtProvider },
+  { provide: CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER, useClass: HashProvider },
+  { provide: CONSTANT.PROVIDERS.AUTH.JWT_PROVIDER, useClass: JwtProvider },
 ];
 
 @Module({

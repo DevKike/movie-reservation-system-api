@@ -8,8 +8,8 @@ export const CONSTANT = {
     },
     AUTH: {
       AUTH_SERVICE: 'AuthService',
-      HASH_SERVICE: 'HashService',
-      JWT_SERVICE: 'JwtProvider',
+      HASH_PROVIDER: 'HashProvider',
+      JWT_PROVIDER: 'JwtProvider',
       APP_GUARD: 'APP_GUARD',
     },
   },
