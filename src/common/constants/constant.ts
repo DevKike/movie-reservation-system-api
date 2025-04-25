@@ -37,4 +37,10 @@ export const CONSTANT = {
     USER: 'user',
     ROLE: 'role',
   },
+
+  ROLE_IDS: {
+    ROOT: 1,
+    ADMIN: 2,
+    USER: 3,
+  },
 };

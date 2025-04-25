@@ -7,6 +7,12 @@ import { IRequest } from '../../interfaces/request/auth-request.interface';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
+  private readonly roleIdToName: Record<number, ROLE> = {
+    [CONSTANT.ROLE_IDS.ROOT]: ROLE.ROOT,
+    [CONSTANT.ROLE_IDS.ADMIN]: ROLE.ADMIN,
+    [CONSTANT.ROLE_IDS.USER]: ROLE.USER,
+  };
+
   constructor(private readonly _reflector: Reflector) {}
 
   canActivate(
@@ -20,9 +26,14 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) return true;
 
     const request: IRequest = context.switchToHttp().getRequest();
-
     const user = request.user;
 
-    return requiredRoles.some((role) => user.role.includes(role));
+    if (!user || user.roleId === undefined) return false;
+
+    const userRoleName = this.roleIdToName[user.roleId];
+
+    if (!userRoleName) return false;
+
+    return requiredRoles.includes(userRoleName);
   }
 }
