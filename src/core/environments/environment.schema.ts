@@ -16,11 +16,13 @@ export const environmentSchema = Joi.object({
   HASH_SALT_ROUNDS: Joi.number().default(10),
 
   JWT_SECRET_KEY: Joi.string().required(),
-  JWT_EXPIRES_IN: Joi.string().default('1d'),
+  JWT_EXPIRES_IN: Joi.string().default('1h'),
+  JWT_AUDIENCE: Joi.string().default('my-api'),
+  JWT_ISSUER: Joi.string().default('my-api'),
 
-  ROOT_USER_EMAIL: Joi.string().email().default('root@example.com'),
-  ROOT_USER_PASSWORD: Joi.string().default('password123'),
-  ROOT_USER_NAME: Joi.string().default('Root'),
-  ROOT_USER_LASTNAME: Joi.string().default('Admin'),
-  ROOT_USER_PHONE: Joi.string().default('1234567890'),
+  ROOT_USER_EMAIL: Joi.string().email().empty('').default('root@example.com'),
+  ROOT_USER_PASSWORD: Joi.string().empty('').default('password123'),
+  ROOT_USER_NAME: Joi.string().empty('').default('Root'),
+  ROOT_USER_LASTNAME: Joi.string().empty('').default('Admin'),
+  ROOT_USER_PHONE: Joi.string().empty('').default('1234567890'),
 });

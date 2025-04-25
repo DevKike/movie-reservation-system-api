@@ -13,18 +13,27 @@ export class JwtProvider implements IJwtProvider {
 
   async signAccessToken<T extends IBaseJwtPayload>(
     payload: T,
+    expiresIn?: string,
   ): Promise<string> {
-    return await this._jwtService.signAsync(payload, {
+    const enhancedPayload = {
+      ...payload,
+      aud: this._configService.get<string>('JWT_AUDIENCE', 'my-api'),
+      iss: this._configService.get<string>('JWT_ISSUER', 'auth-service'),
+    };
+
+    return this._jwtService.signAsync(enhancedPayload, {
+      expiresIn: expiresIn || this._configService.get<string>('JWT_EXPIRES_IN'),
       secret: this._configService.get<string>('JWT_SECRET_KEY'),
-      expiresIn: this._configService.get<string>('JWT_EXPIRES_IN'),
     });
   }
 
   async verifyAccessToken<T extends IBaseJwtPayload>(
     token: string,
   ): Promise<T> {
-    return await this._jwtService.verifyAsync(token, {
+    return this._jwtService.verifyAsync<T>(token, {
       secret: this._configService.get<string>('JWT_SECRET_KEY'),
+      audience: this._configService.get<string>('JWT_AUDIENCE', 'my-api'),
+      issuer: this._configService.get<string>('JWT_ISSUER', 'auth-service'),
     });
   }
 }

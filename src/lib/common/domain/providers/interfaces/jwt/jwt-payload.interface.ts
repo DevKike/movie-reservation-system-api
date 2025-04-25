@@ -5,6 +5,8 @@ export interface IBaseJwtPayload {
   sub: IAuth['id'];
   iat?: number;
   exp?: number;
+  aud?: string | string[];
+  iss?: string;
 }
 
 export interface IJwtPayload extends IBaseJwtPayload {
