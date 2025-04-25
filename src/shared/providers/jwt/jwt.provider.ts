@@ -11,14 +11,18 @@ export class JwtProvider implements IJwtProvider {
     private readonly _configService: ConfigService,
   ) {}
 
-  async signToken<T extends IBaseJwtPayload>(payload: T): Promise<string> {
+  async signAccessToken<T extends IBaseJwtPayload>(
+    payload: T,
+  ): Promise<string> {
     return await this._jwtService.signAsync(payload, {
       secret: this._configService.get<string>('JWT_SECRET_KEY'),
       expiresIn: this._configService.get<string>('JWT_EXPIRES_IN'),
     });
   }
 
-  async verifyToken<T extends IBaseJwtPayload>(token: string): Promise<T> {
+  async verifyAccessToken<T extends IBaseJwtPayload>(
+    token: string,
+  ): Promise<T> {
     return await this._jwtService.verifyAsync(token, {
       secret: this._configService.get<string>('JWT_SECRET_KEY'),
     });

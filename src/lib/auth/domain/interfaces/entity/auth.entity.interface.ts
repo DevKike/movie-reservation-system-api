@@ -1,3 +1,4 @@
+import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import {
   ISaveUser,
   IUser,
@@ -39,7 +40,7 @@ export interface ISignInRes {
   tokens: IAuthTokens;
   user: Pick<IUser, 'id' | 'name' | 'lastName'> & {
     email: string;
-    role: string;
+    roleId: IRole['id'];
   };
 }
 

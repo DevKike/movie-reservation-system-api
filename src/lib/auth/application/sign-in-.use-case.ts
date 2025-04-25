@@ -29,13 +29,15 @@ export class SignInUseCase
 
     if (!isPasswordValid) throw new BadRequestException('Invalid credentials');
 
-    const accessToken = await this._jwtProvider.signToken({
+    const accessToken = await this._jwtProvider.signAccessToken({
       sub: auth.id,
       email: auth.email,
-      role: auth.user.role.name,
+      roleId: auth.user.role.id,
     });
 
-    const refreshToken = await this._jwtProvider.signToken({ sub: auth.id });
+    const refreshToken = await this._jwtProvider.signAccessToken({
+      sub: auth.id,
+    });
 
     return {
       tokens: { accessToken, refreshToken },
@@ -44,7 +46,7 @@ export class SignInUseCase
         name: auth.user.name,
         lastName: auth.user.lastName,
         email: auth.email,
-        role: auth.user.role.name,
+        roleId: auth.user.role.id,
       },
     };
   }
