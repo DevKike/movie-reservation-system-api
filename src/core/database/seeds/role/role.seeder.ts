@@ -25,14 +25,14 @@ export class RoleSeeder implements OnModuleInit {
       const existingRoles = await this._roleRepository.find();
 
       if (existingRoles.length > 0) {
-        this._roleLogger.log(SEED_MESSAGES.ROLES.ALREADY_COMPLETED);
+        this._roleLogger.log(SEED_MESSAGES.ROLE.ALREADY_COMPLETED);
         return;
       }
 
       await this._roleRepository.save(roles);
-      this._roleLogger.log(SEED_MESSAGES.ROLES.COMPLETED);
+      this._roleLogger.log(SEED_MESSAGES.ROLE.COMPLETED);
     } catch (error: unknown) {
-      this._roleLogger.error(SEED_MESSAGES.ROLES.ERROR);
+      this._roleLogger.error(SEED_MESSAGES.ROLE.ERROR);
       if (error instanceof Error) {
         this._roleLogger.error(error.message);
       } else {
