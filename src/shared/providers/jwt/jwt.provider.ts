@@ -23,7 +23,7 @@ export class JwtProvider implements IJwtProvider {
 
     return this._jwtService.signAsync(enhancedPayload, {
       expiresIn:
-        expiresIn || this._configService.get<string>('JWT_ACCESS_EXPIRES_IN'),
+        expiresIn || this._configService.get<string>('JWT_ACCESS_EXPIRES_AT'),
       secret: this._configService.get<string>('JWT_ACCESS_SECRET_KEY'),
     });
   }
@@ -50,7 +50,7 @@ export class JwtProvider implements IJwtProvider {
 
     return this._jwtService.signAsync(enhancedPayload, {
       expiresIn:
-        expiresIn || this._configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+        expiresIn || this._configService.get<string>('JWT_REFRESH_EXPIRES_AT'),
       secret: this._configService.get<string>('JWT_REFRESH_SECRET_KEY'),
     });
   }
