@@ -15,8 +15,10 @@ export const environmentSchema = Joi.object({
 
   HASH_SALT_ROUNDS: Joi.number().default(10),
 
-  JWT_SECRET_KEY: Joi.string().required(),
-  JWT_EXPIRES_IN: Joi.string().default('1h'),
+  JWT_ACCESS_SECRET_KEY: Joi.string().required(),
+  JWT_ACCESS_EXPIRES_AT: Joi.string().default('1h'),
+  JWT_REFRESH_SECRET_KEY: Joi.string().required(),
+  JWT_REFRESH_EXPIRES_AT: Joi.string().default('7d'),
   JWT_AUDIENCE: Joi.string().default('my-api'),
   JWT_ISSUER: Joi.string().default('my-api'),
 

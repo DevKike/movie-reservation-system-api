@@ -49,4 +49,13 @@ export class AuthController {
   async signIn(@Body() data: AuthCredentialsDTO) {
     return await this._signInUseCase.execute(data);
   }
+
+  /*   @Public()  
+  @HttpCode(HttpStatus.OK)
+  @Post('refresh')
+  async refresh() {}
+
+  @HttpCode(HttpStatus.OK)
+  @Post('sign-out')
+  async signOut() {} */
 }

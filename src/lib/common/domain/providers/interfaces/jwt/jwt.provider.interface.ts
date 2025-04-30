@@ -6,9 +6,9 @@ export interface IJwtProvider {
     expiresIn?: string,
   ): Promise<string>;
   verifyAccessToken<T extends IBaseJwtPayload>(token: string): Promise<T>;
-  /*   signRefreshToken<T extends IBaseJwtPayload>(
+  signRefreshToken<T extends IBaseJwtPayload>(
     payload: T,
     expiresIn?: string,
   ): Promise<string>;
-  verifyRefreshToken<T extends IBaseJwtPayload>(token: string): Promise<T>; */
+  verifyRefreshToken<T extends IBaseJwtPayload>(token: string): Promise<T>;
 }

@@ -17,13 +17,14 @@ export class JwtProvider implements IJwtProvider {
   ): Promise<string> {
     const enhancedPayload = {
       ...payload,
-      aud: this._configService.get<string>('JWT_AUDIENCE', 'my-api'),
-      iss: this._configService.get<string>('JWT_ISSUER', 'auth-service'),
+      aud: this._configService.get<string>('JWT_AUDIENCE'),
+      iss: this._configService.get<string>('JWT_ISSUER'),
     };
 
     return this._jwtService.signAsync(enhancedPayload, {
-      expiresIn: expiresIn || this._configService.get<string>('JWT_EXPIRES_IN'),
-      secret: this._configService.get<string>('JWT_SECRET_KEY'),
+      expiresIn:
+        expiresIn || this._configService.get<string>('JWT_ACCESS_EXPIRES_IN'),
+      secret: this._configService.get<string>('JWT_ACCESS_SECRET_KEY'),
     });
   }
 
@@ -31,9 +32,36 @@ export class JwtProvider implements IJwtProvider {
     token: string,
   ): Promise<T> {
     return this._jwtService.verifyAsync<T>(token, {
-      secret: this._configService.get<string>('JWT_SECRET_KEY'),
-      audience: this._configService.get<string>('JWT_AUDIENCE', 'my-api'),
-      issuer: this._configService.get<string>('JWT_ISSUER', 'auth-service'),
+      secret: this._configService.get<string>('JWT_ACCESS_SECRET_KEY'),
+      audience: this._configService.get<string>('JWT_AUDIENCE'),
+      issuer: this._configService.get<string>('JWT_ISSUER'),
+    });
+  }
+
+  async signRefreshToken<T extends IBaseJwtPayload>(
+    payload: T,
+    expiresIn?: string,
+  ): Promise<string> {
+    const enhancedPayload = {
+      ...payload,
+      aud: this._configService.get<string>('JWT_AUDIENCE'),
+      iss: this._configService.get<string>('JWT_ISSUER'),
+    };
+
+    return this._jwtService.signAsync(enhancedPayload, {
+      expiresIn:
+        expiresIn || this._configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+      secret: this._configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+    });
+  }
+
+  async verifyRefreshToken<T extends IBaseJwtPayload>(
+    token: string,
+  ): Promise<T> {
+    return this._jwtService.verifyAsync<T>(token, {
+      secret: this._configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+      audience: this._configService.get<string>('JWT_AUDIENCE'),
+      issuer: this._configService.get<string>('JWT_ISSUER'),
     });
   }
 }
