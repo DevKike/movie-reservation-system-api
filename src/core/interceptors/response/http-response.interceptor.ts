@@ -3,6 +3,7 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
+  HttpStatus,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,15 +36,11 @@ export class ResponseInterceptor<T>
   }
 
   private getSuccessMessageByStatusCode(statusCode: number): string {
-    switch (statusCode) {
-      case 200:
-        return 'Operation completed successfully';
-      case 201:
-        return 'Resource created successfully';
-      case 204:
-        return 'Resource deleted successfully';
-      default:
-        return 'Success';
-    }
+    return (
+      {
+        [HttpStatus.OK]: 'Operation completed successfully',
+        [HttpStatus.CREATED]: 'Resource created successfully',
+      }[statusCode] || 'Success'
+    );
   }
 }
