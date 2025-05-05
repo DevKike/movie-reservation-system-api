@@ -7,7 +7,6 @@ import { IAuthService } from '../domain/interfaces/service/auth.service.interfac
 import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interface';
 import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
 import { IJwtProvider } from 'src/lib/common/domain/providers/interfaces/jwt/jwt.provider.interface';
-import { ConfigService } from '@nestjs/config';
 
 export class SignInUseCase
   implements IAuthUseCase<ISignInRes, IAuthCredentials>
@@ -16,7 +15,6 @@ export class SignInUseCase
     private readonly _authService: IAuthService,
     private readonly _hashProvider: IHashProvider,
     private readonly _jwtProvider: IJwtProvider,
-    private readonly _configService: ConfigService,
   ) {}
 
   async execute(input: IAuthCredentials): Promise<ISignInRes> {
@@ -41,15 +39,15 @@ export class SignInUseCase
       sub: auth.id,
     });
 
-    const refreshTokenExpiresAt = this._configService.get<number>(
-      JWT_REFRESH_EXPIRES_IN,
+    /* const refreshTokenExpiresAt = this._configService.get<number>(
+      JWT_REFRESH_EXPIRES_AT,
     );
 
     const updateRefreshToken = await this._authService.update(auth.id, {
       refreshToken,
       refreshTokenExpiresAt,
       lastSignIn,
-    });
+    }); */
 
     return {
       tokens: { accessToken, refreshToken },
