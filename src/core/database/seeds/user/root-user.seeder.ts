@@ -1,5 +1,4 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SEED_MESSAGES } from 'src/common/constants/seed-messages.constant';
@@ -9,6 +8,8 @@ import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
 import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 import { HashProvider } from 'src/shared/providers/hash/hash.provider';
 import { CONSTANT } from 'src/common/constants/constant';
+import rootUserConfig from './config/root-user.config';
+import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class UserSeeder implements OnModuleInit {
@@ -20,21 +21,14 @@ export class UserSeeder implements OnModuleInit {
     @InjectRepository(Role) private _roleRepository: Repository<Role>,
     @Inject(CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER)
     private readonly _hashProvider: HashProvider,
-    private readonly _configService: ConfigService,
+    @Inject(rootUserConfig.KEY)
+    private readonly _rootUserConfig: ConfigType<typeof rootUserConfig>,
   ) {}
 
   async onModuleInit() {
     try {
-      const rootEmail = this._configService.get<string>('ROOT_USER_EMAIL');
-      const rootPassword =
-        this._configService.get<string>('ROOT_USER_PASSWORD');
-      const rootName = this._configService.get<string>('ROOT_USER_NAME');
-      const rootLastName =
-        this._configService.get<string>('ROOT_USER_LASTNAME');
-      const rootPhone = this._configService.get<string>('ROOT_USER_PHONE');
-
       const existingRootUser = await this._authRepository.findOne({
-        where: { email: rootEmail },
+        where: { email: this._rootUserConfig.email },
         relations: ['user'],
       });
 
@@ -55,18 +49,18 @@ export class UserSeeder implements OnModuleInit {
       }
 
       const rootUser = await this._userRepository.save({
-        name: rootName,
-        lastName: rootLastName,
-        phoneNumber: rootPhone,
+        name: this._rootUserConfig.name,
+        lastName: this._rootUserConfig.lastName,
+        phoneNumber: this._rootUserConfig.phoneNumber,
         role: rootRole,
       });
 
       const hashedPassword = await this._hashProvider.hash(
-        rootPassword ?? 'password123',
+        this._rootUserConfig.password ?? 'password123',
       );
 
       await this._authRepository.save({
-        email: rootEmail,
+        email: this._rootUserConfig.email,
         password: hashedPassword,
         user: rootUser,
       });
