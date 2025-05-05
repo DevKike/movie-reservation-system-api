@@ -33,6 +33,10 @@ export const CONSTANT = {
   },
 
   KEYS: {
+    CONFIG: {
+      DATABASE: 'database',
+      ROOT_USER: 'rootUser',
+    },
     IS_PUBLIC: 'isPublic',
     USER: 'user',
     ROLE: 'role',

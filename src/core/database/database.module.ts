@@ -1,25 +1,21 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
-import { User } from '../../lib/users/infrastructure/entity/users.entity';
-import { Auth } from 'src/lib/auth/infrastructure/entity/auth.entity';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ConfigModule, ConfigType } from '@nestjs/config';
+import databaseConfig from './config/database.config';
 import { SeederModule } from './seeds/seeder.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [Role, User, Auth],
-        synchronize: true,
-      }),
-      inject: [ConfigService],
+      imports: [ConfigModule.forFeature(databaseConfig)],
+      inject: [databaseConfig.KEY],
+      useFactory: (
+        dbConfig: ConfigType<typeof databaseConfig>,
+      ): TypeOrmModuleOptions =>
+        ({
+          ...dbConfig,
+          type: dbConfig.type as TypeOrmModuleOptions['type'],
+        }) as TypeOrmModuleOptions,
     }),
     SeederModule,
   ],
