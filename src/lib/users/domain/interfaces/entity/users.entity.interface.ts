@@ -15,4 +15,7 @@ export interface IUser {
 export interface ISaveUser
   extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt'> {}
 
-export interface IUpdateUser extends Partial<ISaveUser> {}
+export interface IUpdateUser {
+  userId: IUser['id'];
+  userData: Omit<Partial<IUser>, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
+}

@@ -9,5 +9,8 @@ export interface IUsersService {
   get(id: IUser['id']): Promise<IUser>;
   getByPhoneNumber(phoneNumber: string): Promise<IUser | null>;
   save(user: ISaveUser): Promise<IUser>;
-  update(id: IUser['id'], user: IUpdateUser): Promise<IUser>;
+  update(
+    userId: IUpdateUser['userId'],
+    userData: IUpdateUser['userData'],
+  ): Promise<IUser>;
 }

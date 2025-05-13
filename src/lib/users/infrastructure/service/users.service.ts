@@ -40,11 +40,14 @@ export class UsersService implements IUsersService {
     return await this._usersRepository.save(user);
   }
 
-  async update(id: IUser['id'], user: IUpdateUser): Promise<IUser> {
-    await this.get(id);
+  async update(
+    userId: IUpdateUser['userId'],
+    userData: IUpdateUser['userData'],
+  ): Promise<IUser> {
+    await this.get(userId);
 
-    await this._usersRepository.update(id, user);
+    await this._usersRepository.update(userId, userData);
 
-    return await this.get(id);
+    return await this.get(userId);
   }
 }

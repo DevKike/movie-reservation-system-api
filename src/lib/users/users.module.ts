@@ -6,7 +6,7 @@ import { User } from './infrastructure/entity/users.entity';
 import { GetAllUsersUseCase } from './application/get-all-users.use-case';
 import { IUsersService } from './domain/interfaces/service/users.service.interface';
 import { GetUserUseCase } from './application/get-user.use-case';
-import { UpdateUserUseCase } from './application/update-users.use-case';
+import { UpdateUserUseCase } from './application/update-user.use-case';
 import { CONSTANT } from 'src/common/constants/constant';
 
 @Module({

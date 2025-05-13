@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
 import { SignUpDTO } from '../dtos/sign-up.dto';
-import { IAuthUseCase } from '../../domain/interfaces/use-case/auth.use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
 import {
   IAuthCredentials,
   ISignInRes,
@@ -17,16 +17,17 @@ import {
 } from '../../domain/interfaces/entity/auth.entity.interface';
 import { AuthCredentialsDTO } from '../dtos/auth-credentials.dto';
 import { Public } from '../decorators/auth/auth.decorator';
+import { RefreshTokenDTO } from '../dtos/refresh-token.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     @Inject(CONSTANT.USE_CASES.AUTH.SIGN_UP_ADMIN)
-    private readonly _signUpAdminUseCase: IAuthUseCase<ISignUpRes, ISignUp>,
+    private readonly _signUpAdminUseCase: IUseCase<ISignUp, ISignUpRes>,
     @Inject(CONSTANT.USE_CASES.AUTH.SIGN_UP_USER)
-    private readonly _signUpUserUseCase: IAuthUseCase<ISignUpRes, ISignUp>,
+    private readonly _signUpUserUseCase: IUseCase<ISignUp, ISignUpRes>,
     @Inject(CONSTANT.USE_CASES.AUTH.SIGN_IN)
-    private readonly _signInUseCase: IAuthUseCase<ISignInRes, IAuthCredentials>,
+    private readonly _signInUseCase: IUseCase<IAuthCredentials, ISignInRes>,
   ) {}
 
   @Public()
@@ -46,16 +47,17 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('sign-in')
-  async signIn(@Body() data: AuthCredentialsDTO) {
+  async signIn(@Body() data: AuthCredentialsDTO): Promise<ISignInRes> {
     return await this._signInUseCase.execute(data);
   }
 
-  /*   @Public()  
+  /*   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('refresh')
-  async refresh() {}
+  async refresh(data: RefreshTokenDTO) {
+    return await this.
 
-  @HttpCode(HttpStatus.OK)
+  /*   @HttpCode(HttpStatus.OK)
   @Post('sign-out')
   async signOut() {} */
 }
