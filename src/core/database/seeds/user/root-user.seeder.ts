@@ -33,7 +33,7 @@ export class UserSeeder implements OnModuleInit {
       });
 
       if (existingRootUser) {
-        this._userLogger.log(SEED_MESSAGES.USER.ALREADY_COMPLETED);
+        this._userLogger.log(SEED_MESSAGES.ROOT_USER.ALREADY_COMPLETED);
         return;
       }
 
@@ -65,9 +65,9 @@ export class UserSeeder implements OnModuleInit {
         user: rootUser,
       });
 
-      this._userLogger.log(SEED_MESSAGES.USER.COMPLETED);
+      this._userLogger.log(SEED_MESSAGES.ROOT_USER.COMPLETED);
     } catch (error) {
-      this._userLogger.error(SEED_MESSAGES.USER.ERROR);
+      this._userLogger.error(SEED_MESSAGES.ROOT_USER.ERROR);
       if (error instanceof Error) {
         this._userLogger.error(error.message);
       } else {
