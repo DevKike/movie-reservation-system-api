@@ -6,12 +6,14 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Request, Response } from 'express';
 import {
   AuthResponse,
   HttpAuthTokens,
 } from './interface/auth-response.interface';
 import { IBaseJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
+import { IRequestAdapter } from 'src/core/adapters/request/interface/request-adapter.interface';
+import { IResponseAdapter } from 'src/core/adapters/response/interface/response-adapter.interface';
+import { CONSTANT } from 'src/common/constants/constant';
 
 @Injectable()
 export class AuthCookieInterceptor
@@ -27,15 +29,17 @@ export class AuthCookieInterceptor
           data?.tokens?.refreshToken &&
           typeof data.tokens.refreshToken === 'string'
         ) {
-          const request = context.switchToHttp().getRequest<Request>();
-          const response = context.switchToHttp().getResponse<Response>();
+          const request = context.switchToHttp().getRequest<IRequestAdapter>();
+          const response = context
+            .switchToHttp()
+            .getResponse<IResponseAdapter>();
 
           const pathBase = this.getPathBase(request.path);
 
           const refreshTokenStr = data.tokens.refreshToken;
           const expiresIn = this.getExpirationFromToken(refreshTokenStr);
 
-          response.cookie('refreshToken', refreshTokenStr, {
+          response.cookie(CONSTANT.KEYS.REFRESH_TOKEN, refreshTokenStr, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development',
             sameSite: 'strict',
@@ -49,7 +53,7 @@ export class AuthCookieInterceptor
               accessToken: data.tokens.accessToken,
               refreshToken: {
                 stored: 'cookie',
-                cookieName: 'refreshToken',
+                cookieName: CONSTANT.KEYS.REFRESH_TOKEN,
                 path: `${pathBase}/refresh`,
               },
             } as HttpAuthTokens,
