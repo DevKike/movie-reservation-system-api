@@ -1,67 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Inject, Injectable } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { IBaseJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
 import { IJwtProvider } from 'src/lib/common/domain/providers/interfaces/jwt/jwt.provider.interface';
+import jwtConfig from './config/jwt.config';
+import { TokenType } from 'src/common/types/token.type';
 
 @Injectable()
 export class JwtProvider implements IJwtProvider {
   constructor(
     private readonly _jwtService: JwtService,
-    private readonly _configService: ConfigService,
+    @Inject(jwtConfig.KEY)
+    private readonly _jwtConfig: ConfigType<typeof jwtConfig>,
   ) {}
 
-  async signAccessToken<T extends IBaseJwtPayload>(
+  async signToken<T extends IBaseJwtPayload>(
     payload: T,
+    type: TokenType,
     expiresIn?: string,
   ): Promise<string> {
-    const enhancedPayload = {
-      ...payload,
-      aud: this._configService.get<string>('JWT_AUDIENCE'),
-      iss: this._configService.get<string>('JWT_ISSUER'),
-    };
+    const defaultExpiry =
+      type === 'access'
+        ? this._jwtConfig.accessExpiresIn
+        : this._jwtConfig.refreshExpiresIn;
 
-    return this._jwtService.signAsync(enhancedPayload, {
-      expiresIn:
-        expiresIn || this._configService.get<string>('JWT_ACCESS_EXPIRES_AT'),
-      secret: this._configService.get<string>('JWT_ACCESS_SECRET_KEY'),
+    return await this._jwtService.signAsync(payload, {
+      secret: this._jwtConfig.secretKey,
+      expiresIn: expiresIn || defaultExpiry,
+      audience: this._jwtConfig.audience,
+      issuer: this._jwtConfig.issuer,
     });
   }
 
-  async verifyAccessToken<T extends IBaseJwtPayload>(
-    token: string,
-  ): Promise<T> {
-    return this._jwtService.verifyAsync<T>(token, {
-      secret: this._configService.get<string>('JWT_ACCESS_SECRET_KEY'),
-      audience: this._configService.get<string>('JWT_AUDIENCE'),
-      issuer: this._configService.get<string>('JWT_ISSUER'),
-    });
-  }
-
-  async signRefreshToken<T extends IBaseJwtPayload>(
-    payload: T,
-    expiresIn?: string,
-  ): Promise<string> {
-    const enhancedPayload = {
-      ...payload,
-      aud: this._configService.get<string>('JWT_AUDIENCE'),
-      iss: this._configService.get<string>('JWT_ISSUER'),
-    };
-
-    return this._jwtService.signAsync(enhancedPayload, {
-      expiresIn:
-        expiresIn || this._configService.get<string>('JWT_REFRESH_EXPIRES_AT'),
-      secret: this._configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-    });
-  }
-
-  async verifyRefreshToken<T extends IBaseJwtPayload>(
-    token: string,
-  ): Promise<T> {
-    return this._jwtService.verifyAsync<T>(token, {
-      secret: this._configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-      audience: this._configService.get<string>('JWT_AUDIENCE'),
-      issuer: this._configService.get<string>('JWT_ISSUER'),
+  async verifyToken<T extends IBaseJwtPayload>(token: string): Promise<T> {
+    return await this._jwtService.verifyAsync(token, {
+      secret: this._jwtConfig.secretKey,
+      audience: this._jwtConfig.audience,
+      issuer: this._jwtConfig.issuer,
     });
   }
 }

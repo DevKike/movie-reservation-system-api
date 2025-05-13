@@ -9,8 +9,8 @@ export interface IAuth {
   email: string;
   password: string;
   refreshToken?: string;
-  refreshTokenExpiresAt?: Date;
-  lastSignInAt?: Date;
+  refreshTokenExpiresIn?: Date;
+  lastSignIn?: Date;
   createdAt: Date;
   updatedAt: Date;
   user: IUser;
