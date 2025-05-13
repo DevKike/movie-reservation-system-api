@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Inject,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
 import { SignUpDTO } from '../dtos/sign-up.dto';
@@ -16,6 +17,7 @@ import {
   ISignUpRes,
 } from '../../domain/interfaces/entity/auth.entity.interface';
 import { AuthCredentialsDTO } from '../dtos/auth-credentials.dto';
+import { AuthCookieInterceptor } from 'src/core/interceptors/auth-cookie/auth-cookie.interceptor';
 import { Public } from '../decorators/auth/auth.decorator';
 import { RefreshTokenDTO } from '../dtos/refresh-token.dto';
 
@@ -44,6 +46,7 @@ export class AuthController {
     return await this._signUpUserUseCase.execute(data);
   }
 
+  @UseInterceptors(AuthCookieInterceptor)
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('sign-in')
@@ -51,11 +54,14 @@ export class AuthController {
     return await this._signInUseCase.execute(data);
   }
 
-  /*   @Public()
+  /*   
+  @UseInterceptors(AuthCookieInterceptor)
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('refresh')
   async refresh(data: RefreshTokenDTO) {
     return await this.
+  } */
 
   /*   @HttpCode(HttpStatus.OK)
   @Post('sign-out')
