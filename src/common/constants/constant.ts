@@ -36,6 +36,7 @@ export const CONSTANT = {
     CONFIG: {
       DATABASE: 'database',
       ROOT_USER: 'rootUser',
+      JWT: 'jwt',
     },
     IS_PUBLIC: 'isPublic',
     USER: 'user',
