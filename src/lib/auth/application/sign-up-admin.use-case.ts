@@ -7,7 +7,7 @@ import { IAuthService } from '../domain/interfaces/service/auth.service.interfac
 import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
 import { IRolesService } from 'src/lib/roles/domain/interfaces/service/roles.service.interface';
 import { IAuthUseCase } from '../domain/interfaces/use-case/auth.use-case.interface';
-import { AlreadyExistsException } from 'src/lib/common/domain/exceptions/already-exists.exception';
+import { AlreadyExistsException } from 'src/common/exceptions/already-exists.exception';
 import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
 
 export class SignOnAdminUseCase implements IAuthUseCase<ISignUpRes, ISignUp> {

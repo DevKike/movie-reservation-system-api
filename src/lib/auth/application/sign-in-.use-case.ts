@@ -1,4 +1,4 @@
-import { BadRequestException } from 'src/lib/common/domain/exceptions/bad-request.exception';
+import { BadRequestException } from 'src/common/exceptions/bad-request.exception';
 import {
   IAuthCredentials,
   ISignInRes,
@@ -29,24 +29,34 @@ export class SignInUseCase
 
     if (!isPasswordValid) throw new BadRequestException('Invalid credentials');
 
-    const accessToken = await this._jwtProvider.signAccessToken({
-      sub: auth.id,
-      email: auth.email,
-      roleId: auth.user.role.id,
-    });
-
-    const refreshToken = await this._jwtProvider.signRefreshToken({
-      sub: auth.id,
-    });
-
-    /* const refreshTokenExpiresAt = this._configService.get<number>(
-      JWT_REFRESH_EXPIRES_AT,
+    const accessToken = await this._jwtProvider.signToken(
+      {
+        sub: auth.id,
+        email: auth.email,
+        roleId: auth.user.role.id,
+      },
+      'access',
     );
 
-    const updateRefreshToken = await this._authService.update(auth.id, {
+    const refreshToken = await this._jwtProvider.signToken(
+      {
+        sub: auth.id,
+      },
+      'refresh',
+    );
+
+    const decodedToken = await this._jwtProvider.verifyToken(refreshToken);
+    console.log('🚀 ~ execute ~ decodedToken:', decodedToken);
+    const refreshTokenExpiresInToDate = new Date(decodedToken.exp! * 1000);
+    console.log(
+      '🚀 ~ execute ~ refreshTokenExpiresInToDate:',
+      refreshTokenExpiresInToDate,
+    );
+
+    /* const updateRefreshToken = await this._authService.update(auth.id, {
       refreshToken,
-      refreshTokenExpiresAt,
-      lastSignIn,
+      refreshTokenExpiresIn,
+      lastSignIn: new Date(),
     }); */
 
     return {
