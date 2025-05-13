@@ -15,6 +15,7 @@ import { SeederModule } from './seeds/seeder.module';
         ({
           ...dbConfig,
           type: dbConfig.type as TypeOrmModuleOptions['type'],
+          timezone: 'Z',
         }) as TypeOrmModuleOptions,
     }),
     SeederModule,
