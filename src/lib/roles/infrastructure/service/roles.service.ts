@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from '../entity/roles.entity';
 import { Repository } from 'typeorm';
 import { IRole } from '../../domain/interfaces/entity/roles.entity.interface';
-import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
+import { NotFoundException } from 'src/common/exceptions/not-found.exception';
 import { ROLE } from '../../domain/enums/roles.enum';
 
 @Injectable()
