@@ -15,6 +15,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { SignOnUserUseCase } from './application/sign-up-user.use-case';
 import { SignInUseCase } from './application/sign-in-.use-case';
 import { IJwtProvider } from '../common/domain/providers/interfaces/jwt/jwt.provider.interface';
+import { RefreshAuthUseCase } from './application/refresh-auth.use-case';
 
 @Module({
   imports: [
@@ -76,8 +77,18 @@ import { IJwtProvider } from '../common/domain/providers/interfaces/jwt/jwt.prov
       useFactory: (
         authService: IAuthService,
         hashService: IHashProvider,
-        jwtService: IJwtProvider,
-      ) => new SignInUseCase(authService, hashService, jwtService),
+        jwtProvider: IJwtProvider,
+      ) => new SignInUseCase(authService, hashService, jwtProvider),
+      inject: [
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,
+        CONSTANT.PROVIDERS.AUTH.JWT_PROVIDER,
+      ],
+    },
+    {
+      provide: CONSTANT.USE_CASES.AUTH.REFRESH_AUTH,
+      useFactory: (jwtProvider: IJwtProvider, authService: IAuthService) =>
+        new RefreshAuthUseCase(jwtProvider, authService),
       inject: [
         CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
         CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,

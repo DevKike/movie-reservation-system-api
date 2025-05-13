@@ -29,6 +29,7 @@ export const CONSTANT = {
       SIGN_UP_ADMIN: 'SignUpAdminUseCase',
       SIGN_UP_USER: 'SignUpUserUseCase',
       SIGN_IN: 'SignInUseCase',
+      REFRESH_AUTH: 'RefreshAuthUseCase',
     },
   },
 
@@ -41,6 +42,7 @@ export const CONSTANT = {
     IS_PUBLIC: 'isPublic',
     USER: 'user',
     ROLE: 'role',
+    REFRESH_TOKEN: 'refreshToken',
   },
 
   ROLE_IDS: {
