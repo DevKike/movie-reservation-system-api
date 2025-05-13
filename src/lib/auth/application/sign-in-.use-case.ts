@@ -44,18 +44,14 @@ export class SignInUseCase implements IUseCase<IAuthCredentials, ISignInRes> {
     );
 
     const decodedToken = await this._jwtProvider.verifyToken(refreshToken);
-    console.log('🚀 ~ execute ~ decodedToken:', decodedToken);
-    const refreshTokenExpiresInToDate = new Date(decodedToken.exp! * 1000);
-    console.log(
-      '🚀 ~ execute ~ refreshTokenExpiresInToDate:',
-      refreshTokenExpiresInToDate,
-    );
 
-    /* const updateRefreshToken = await this._authService.update(auth.id, {
+    const refreshTokenExpirationDate = new Date(decodedToken.exp! * 1000);
+
+    await this._authService.update(auth.id, {
       refreshToken,
-      refreshTokenExpiresIn,
-      lastSignIn: new Date(),
-    }); */
+      refreshTokenExpiresAt: refreshTokenExpirationDate,
+      lastSignInAt: new Date(),
+    });
 
     return {
       tokens: { accessToken, refreshToken },
