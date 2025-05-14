@@ -6,24 +6,24 @@ import { CookieOptions, Response } from 'express';
 export class CookieManagerProvider {
   setAuthCookie(
     res: Response,
-    currentPath: string,
+    basePath: string,
     token: string,
     expiresIn: number,
   ): void {
     const options: CookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'lax',
+      sameSite: 'strict',
       maxAge: expiresIn,
-      path: currentPath,
+      path: basePath,
     };
 
     res.cookie(CONSTANT.KEYS.REFRESH_TOKEN, token, options);
   }
 
-  clearAuthCookie(res: Response, currentPath: string): void {
+  clearAuthCookie(res: Response, basePath: string): void {
     res.clearCookie(CONSTANT.KEYS.REFRESH_TOKEN, {
-      path: currentPath,
+      path: basePath,
     });
   }
 }
