@@ -1,6 +1,6 @@
 import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import { UsersStatus } from '../../enums/users-status.enum';
-import { IMovies } from 'src/lib/movies/domain/interfaces/entity/movies.entity.interface';
+import { IMovie } from 'src/lib/movies/domain/interfaces/entity/movies.entity.interface';
 
 export interface IUser {
   id: number;
@@ -11,7 +11,7 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
   role: IRole;
-  movies: IMovies[];
+  movies: IMovie[];
 }
 
 export interface ISaveUser
