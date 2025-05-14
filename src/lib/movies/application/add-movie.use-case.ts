@@ -1,19 +1,42 @@
 import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
 import {
-  IMovie,
-  ISaveMovie,
+  IAddMovieData,
+  IAddMovieRes,
 } from '../domain/interfaces/entity/movies.entity.interface';
-import { Inject } from '@nestjs/common';
-import { CONSTANT } from 'src/common/constants/constant';
 import { IMoviesService } from '../domain/interfaces/service/movies.service.interface';
+import { IUsersService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
+import { BadRequestException } from 'src/common/exceptions/bad-request.exception';
+import { IUploadsService } from 'src/lib/common/domain/providers/interfaces/uploads/uploads.service.interface';
+import { CONSTANT } from 'src/common/constants/constant';
 
-export class AddMovieUseCase implements IUseCase<ISaveMovie, IMovie> {
+export class AddMovieUseCase implements IUseCase<IAddMovieData, IAddMovieRes> {
   constructor(
-    @Inject(CONSTANT.PROVIDERS.MOVIE.MOVIES_SERVICE)
     private readonly _moviesService: IMoviesService,
+    private readonly _usersService: IUsersService,
+    private readonly _uploadsService: IUploadsService,
   ) {}
 
-  async execute(input: ISaveMovie): Promise<IMovie> {
-    return await this._moviesService.save(input);
+  async execute(input: IAddMovieData): Promise<IAddMovieRes> {
+    const userData = await this._usersService.get(input.userId);
+
+    if (!userData) throw new BadRequestException('Bad request');
+
+    const uploadedUrl = await this._uploadsService.uploadFile(
+      input.posterFile,
+      CONSTANT.KEYS.IMAGES_PATH,
+    );
+
+    const movie = await this._moviesService.save({
+      title: input.title,
+      description: input.description,
+      genre: input.genre,
+      showtimes: input.showtimes,
+      posterUrl: uploadedUrl,
+      createdBy: userData,
+    });
+
+    return {
+      movie,
+    };
   }
 }
