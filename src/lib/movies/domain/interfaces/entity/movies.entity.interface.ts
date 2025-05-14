@@ -1,3 +1,4 @@
+import { IUploadFile } from 'src/lib/common/domain/providers/interfaces/uploads/upload-file.interface';
 import { IUser } from 'src/lib/users/domain/interfaces/entity/users.entity.interface';
 
 export interface IShowtime {
@@ -18,7 +19,17 @@ export interface IMovie {
 }
 
 export interface ISaveMovie
-  extends Pick<
-    IMovie,
-    'title' | 'description' | 'posterUrl' | 'genre' | 'showtimes' | 'createdBy'
-  > {}
+  extends Omit<IMovie, 'id' | 'createdAt' | 'updatedAt'> {}
+
+export interface IAddMovieData
+  extends Omit<ISaveMovie, 'createdBy' | 'posterUrl'> {
+  userId: IUser['id'];
+  posterFile: IUploadFile;
+}
+
+export interface IAddMovieBody
+  extends Omit<ISaveMovie, 'createdBy' | 'posterUrl'> {}
+
+export interface IAddMovieRes {
+  movie: IMovie;
+}
