@@ -8,14 +8,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import {
-  IMovies,
+  IMovie,
   IShowtime,
 } from '../../domain/interfaces/entity/movies.entity.interface';
 import { IUser } from 'src/lib/users/domain/interfaces/entity/users.entity.interface';
 import { User } from 'src/lib/users/infrastructure/entity/users.entity';
 
 @Entity('movies')
-export class Movies implements IMovies {
+export class Movie implements IMovie {
   @PrimaryGeneratedColumn()
   id: number;
 
