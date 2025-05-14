@@ -1,19 +1,54 @@
 export const CONSTANT = {
   PROVIDERS: {
-    //USERS
-    USERS_SERVICE: 'UsersService',
-
-    //ROLES
-    ROLES_SERVICE: 'RolesService',
+    USER: {
+      USERS_SERVICE: 'UsersService',
+    },
+    ROLE: {
+      ROLES_SERVICE: 'RolesService',
+    },
+    AUTH: {
+      AUTH_SERVICE: 'AuthService',
+      HASH_PROVIDER: 'HashProvider',
+      JWT_PROVIDER: 'JwtProvider',
+      APP_GUARD: 'APP_GUARD',
+    },
   },
 
   USE_CASES: {
-    //USERS
-    GET_ALL_USERS: 'GetAllUsersUseCase',
-    GET_USER: 'GetUserUseCase',
-    UPDATE_USER: 'UpdateUserUseCase',
+    USER: {
+      GET_ALL_USERS: 'GetAllUsersUseCase',
+      GET_USER: 'GetUserUseCase',
+      UPDATE_USER: 'UpdateUserUseCase',
+    },
 
-    //ROLES
-    GET_ALL_ROLES: 'GetAllRolesUseCase',
+    ROLE: {
+      GET_ALL_ROLES: 'GetAllRolesUseCase',
+    },
+
+    AUTH: {
+      SIGN_UP_ADMIN: 'SignUpAdminUseCase',
+      SIGN_UP_USER: 'SignUpUserUseCase',
+      SIGN_IN: 'SignInUseCase',
+      REFRESH_AUTH: 'RefreshAuthUseCase',
+      SIGN_OUT: 'SignOutUseCase',
+    },
+  },
+
+  KEYS: {
+    CONFIG: {
+      DATABASE: 'database',
+      ROOT_USER: 'rootUser',
+      JWT: 'jwt',
+    },
+    IS_PUBLIC: 'isPublic',
+    USER: 'user',
+    ROLE: 'role',
+    REFRESH_TOKEN: 'refreshToken',
+  },
+
+  ROLE_IDS: {
+    ROOT: 1,
+    ADMIN: 2,
+    USER: 3,
   },
 };

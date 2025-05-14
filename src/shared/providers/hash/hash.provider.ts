@@ -1,0 +1,20 @@
+import { Injectable } from '@nestjs/common';
+import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
+import * as bcrypt from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
+
+@Injectable()
+export class HashProvider implements IHashProvider {
+  constructor(private readonly _configService: ConfigService) {}
+
+  async hash(data: string): Promise<string> {
+    const salt = await bcrypt.genSalt(
+      this._configService.get<number>('HASH_SALT_ROUNDS'),
+    );
+    return await bcrypt.hash(data, salt);
+  }
+
+  async compareHash(data: string, hashed: string): Promise<boolean> {
+    return await bcrypt.compare(data, hashed);
+  }
+}

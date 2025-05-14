@@ -1,18 +1,21 @@
 import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
-import { UserStatus } from '../../enums/user-status.enum';
+import { UsersStatus } from '../../enums/users-status.enum';
 
 export interface IUser {
   id: number;
   name: string;
   lastName: string;
   phoneNumber?: string;
-  status: UserStatus;
+  status: UsersStatus;
   createdAt: Date;
   updatedAt: Date;
   role: IRole;
 }
 
 export interface ISaveUser
-  extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt' | 'role'> {}
+  extends Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt'> {}
 
-export interface IUpdateUser extends Partial<ISaveUser> {}
+export interface IUpdateUser {
+  userId: IUser['id'];
+  userData: Omit<Partial<IUser>, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
+}

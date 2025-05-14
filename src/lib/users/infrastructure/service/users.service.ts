@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IUserService } from '../../domain/service/users.service.interface';
+import { IUsersService } from '../../domain/interfaces/service/users.service.interface';
 import {
   IUser,
   ISaveUser,
@@ -8,16 +8,16 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/users.entity';
 import { Repository } from 'typeorm';
-import { NotFoundException } from 'src/lib/common/domain/exceptions/not-found.exception';
+import { NotFoundException } from 'src/common/exceptions/not-found.exception';
 
 @Injectable()
-export class UsersService implements IUserService {
+export class UsersService implements IUsersService {
   constructor(
-    @InjectRepository(User) private readonly _userRepository: Repository<User>,
+    @InjectRepository(User) private readonly _usersRepository: Repository<User>,
   ) {}
 
   async getAll(): Promise<IUser[]> {
-    const users = await this._userRepository.find();
+    const users = await this._usersRepository.find();
 
     if (!users.length) throw new NotFoundException('No users found');
 
@@ -25,22 +25,29 @@ export class UsersService implements IUserService {
   }
 
   async get(id: IUser['id']): Promise<IUser> {
-    const user = await this._userRepository.findOneBy({ id });
+    const user = await this._usersRepository.findOneBy({ id });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
 
     return user;
   }
 
-  async save(user: ISaveUser): Promise<IUser> {
-    return await this._userRepository.save(user);
+  async getByPhoneNumber(phoneNumber: string): Promise<IUser | null> {
+    return await this._usersRepository.findOneBy({ phoneNumber });
   }
 
-  async update(id: IUser['id'], user: IUpdateUser): Promise<IUser> {
-    await this.get(id);
+  async save(user: ISaveUser): Promise<IUser> {
+    return await this._usersRepository.save(user);
+  }
 
-    await this._userRepository.update(id, user);
+  async update(
+    userId: IUpdateUser['userId'],
+    userData: IUpdateUser['userData'],
+  ): Promise<IUser> {
+    await this.get(userId);
 
-    return await this.get(id);
+    await this._usersRepository.update(userId, userData);
+
+    return await this.get(userId);
   }
 }

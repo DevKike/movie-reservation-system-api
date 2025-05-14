@@ -1,11 +1,13 @@
-import { IRole } from '../domain/interfaces/entity/roles.entity.interface';
-import { IRoleService } from '../domain/interfaces/service/roles.service.interface';
-import { IRolesUseCase } from '../domain/interfaces/use-cases/roles.use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IGetRolesRes } from '../domain/interfaces/entity/roles.entity.interface';
+import { IRolesService } from '../domain/interfaces/service/roles.service.interface';
 
-export class GetAllRolesUseCase implements IRolesUseCase<IRole[]> {
-  constructor(private readonly _rolesService: IRoleService) {}
+export class GetAllRolesUseCase implements IUseCase<void, IGetRolesRes> {
+  constructor(private readonly _rolesService: IRolesService) {}
 
-  async execute(): Promise<IRole[]> {
-    return await this._rolesService.getAll();
+  async execute(): Promise<IGetRolesRes> {
+    const roles = await this._rolesService.getAll();
+
+    return { roles };
   }
 }

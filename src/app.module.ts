@@ -2,10 +2,24 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './lib/users/users.module';
 import { CoreModule } from './core/core.module';
 import { RolesModule } from './lib/roles/roles.module';
-import { SeederModule } from './seeds/seeder.module';
+import { AuthModule } from './lib/auth/auth.module';
+import { SharedModule } from './shared/shared.module';
+import { CONSTANT } from './common/constants/constant';
+import { AuthGuard } from './lib/auth/infrastructure/guards/auth/auth.guard';
+import { RolesGuard } from './lib/auth/infrastructure/guards/roles/roles.guard';
 
 @Module({
-  imports: [CoreModule, SeederModule, UsersModule, RolesModule],
+  providers: [
+    {
+      provide: CONSTANT.PROVIDERS.AUTH.APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: CONSTANT.PROVIDERS.AUTH.APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
+  imports: [CoreModule, UsersModule, RolesModule, AuthModule, SharedModule],
   controllers: [],
 })
 export class AppModule {}

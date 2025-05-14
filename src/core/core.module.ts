@@ -6,9 +6,9 @@ import { environmentSchema } from './environments/environment.schema';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
-      validationSchema: environmentSchema,
+      envFilePath: ['.env'],
       isGlobal: true,
+      validationSchema: environmentSchema,
     }),
     DatabaseModule,
   ],
