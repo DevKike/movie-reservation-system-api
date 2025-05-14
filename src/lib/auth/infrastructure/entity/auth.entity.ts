@@ -24,13 +24,17 @@ export class Auth implements IAuth {
   @Exclude()
   password: string;
 
-  @Column({ name: 'refresh_token', nullable: true })
-  refreshToken: string;
+  @Column({ name: 'refresh_token', type: 'varchar', nullable: true })
+  refreshToken: string | null;
 
-  @Column({ name: 'refresh_token_expires_at', nullable: true })
-  refreshTokenExpiresAt: Date;
+  @Column({
+    name: 'refresh_token_expires_at',
+    type: 'timestamp',
+    nullable: true,
+  })
+  refreshTokenExpiresAt: Date | null;
 
-  @Column({ name: 'last_sign_in_at', nullable: true })
+  @Column({ name: 'last_sign_in_at', type: 'timestamp', nullable: true })
   lastSignInAt: Date;
 
   @CreateDateColumn({ name: 'created_at' })

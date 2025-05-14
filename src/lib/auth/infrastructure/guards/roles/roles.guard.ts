@@ -3,9 +3,8 @@ import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { CONSTANT } from 'src/common/constants/constant';
 import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
-import { Request } from 'express';
-import { RequestAdapterFactory } from 'src/core/adapters/request/factory/request-adapter.factory';
 import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
+import { IRequest } from 'src/lib/common/domain/request/interface/request.interface';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -27,11 +26,9 @@ export class RolesGuard implements CanActivate {
 
     if (!requiredRoles) return true;
 
-    const request = context.switchToHttp().getRequest<Request>();
-    const requestAdapter =
-      RequestAdapterFactory.createFromExpressRequest(request);
+    const request = context.switchToHttp().getRequest<IRequest>();
 
-    const user = requestAdapter.user as IJwtPayload;
+    const user = request.user as IJwtPayload;
 
     if (!user || user.roleId === undefined) return false;
 

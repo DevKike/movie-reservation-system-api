@@ -8,8 +8,8 @@ export interface IAuth {
   id: number;
   email: string;
   password: string;
-  refreshToken?: string;
-  refreshTokenExpiresAt?: Date;
+  refreshToken?: string | null;
+  refreshTokenExpiresAt?: Date | null;
   lastSignInAt?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -35,7 +35,6 @@ export interface IAuthTokens {
   accessToken: string;
   refreshToken: string;
 }
-
 export interface ISignInRes {
   tokens: IAuthTokens;
   user: Pick<IUser, 'id' | 'name' | 'lastName'> & {
@@ -48,4 +47,8 @@ export interface ISignUp extends ISaveUser, IAuthCredentials {}
 
 export interface ISignUpRes {
   auth: Omit<IAuth, 'password'>;
+}
+
+export interface ISignOutRes {
+  message: string;
 }

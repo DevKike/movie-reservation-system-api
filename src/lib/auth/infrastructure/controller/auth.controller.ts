@@ -6,6 +6,8 @@ import {
   HttpStatus,
   Inject,
   Post,
+  Req,
+  Res,
   UseInterceptors,
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
@@ -15,15 +17,17 @@ import {
   IAuthCredentials,
   IAuthTokens,
   ISignInRes,
+  ISignOutRes,
   ISignUp,
   ISignUpRes,
 } from '../../domain/interfaces/entity/auth.entity.interface';
 import { AuthCredentialsDTO } from '../dtos/auth-credentials.dto';
-import { AuthCookieInterceptor } from 'src/core/interceptors/auth-cookie/auth-cookie.interceptor';
+import { AuthCookieInterceptor } from 'src/lib/auth/infrastructure/interceptors/auth-cookie/auth-cookie.interceptor';
 import { Public } from '../decorators/auth/auth.decorator';
 import { RefreshToken } from '../decorators/auth/refresh-token.decorator';
 import { ActiveUser } from '../decorators/auth/active-user.decorator';
 import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
+import { AuthCookieClearInterceptor } from '../interceptors/auth-cookie/auth-cookie-clear.interceptor';
 
 @Controller('auth')
 export class AuthController {
@@ -38,6 +42,11 @@ export class AuthController {
     private readonly _refreshAuthUseCase: IUseCase<
       IAuthTokens['refreshToken'],
       ISignInRes
+    >,
+    @Inject(CONSTANT.USE_CASES.AUTH.SIGN_OUT)
+    private readonly _signOutUseCase: IUseCase<
+      IAuthTokens['refreshToken'],
+      ISignOutRes
     >,
   ) {}
 
@@ -84,7 +93,10 @@ export class AuthController {
     return await this._refreshAuthUseCase.execute(token);
   }
 
-  /*   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(AuthCookieClearInterceptor)
+  @HttpCode(HttpStatus.OK)
   @Post('sign-out')
-  async signOut() {} */
+  async signOut(@RefreshToken() token: string): Promise<ISignOutRes> {
+    return await this._signOutUseCase.execute(token);
+  }
 }

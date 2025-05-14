@@ -5,6 +5,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { TokenExpiredError } from '@nestjs/jwt';
 import { Request } from 'express';
 import { CONSTANT } from 'src/common/constants/constant';
 import { UnauthorizedException } from 'src/common/exceptions/unauthorized.exception';
@@ -26,7 +27,7 @@ export class AuthGuard implements CanActivate {
 
     if (isPublic) return true;
 
-    const request: Request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
@@ -34,9 +35,13 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      const payload = await this._jwtProvider.verifyToken(token);
-      request[CONSTANT.KEYS.USER] = payload;
-    } catch {
+      const decodedToken = await this._jwtProvider.verifyToken(token);
+
+      request[CONSTANT.KEYS.USER] = decodedToken;
+    } catch (error) {
+      if (error instanceof TokenExpiredError)
+        throw new UnauthorizedException('Authentication token has expired');
+
       throw new UnauthorizedException('Invalid authentication token');
     }
 

@@ -30,6 +30,7 @@ export const CONSTANT = {
       SIGN_UP_USER: 'SignUpUserUseCase',
       SIGN_IN: 'SignInUseCase',
       REFRESH_AUTH: 'RefreshAuthUseCase',
+      SIGN_OUT: 'SignOutUseCase',
     },
   },
 

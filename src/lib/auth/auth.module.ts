@@ -16,6 +16,8 @@ import { SignOnUserUseCase } from './application/sign-up-user.use-case';
 import { SignInUseCase } from './application/sign-in-.use-case';
 import { IJwtProvider } from '../common/domain/providers/interfaces/jwt/jwt.provider.interface';
 import { RefreshAuthUseCase } from './application/refresh-auth.use-case';
+import { SignOutUseCase } from './application/sign-out.use-case';
+import { CookieManagerProvider } from './infrastructure/providers/cookie-manager.provider';
 
 @Module({
   imports: [
@@ -90,11 +92,21 @@ import { RefreshAuthUseCase } from './application/refresh-auth.use-case';
       useFactory: (jwtProvider: IJwtProvider, authService: IAuthService) =>
         new RefreshAuthUseCase(jwtProvider, authService),
       inject: [
-        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
-        CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,
         CONSTANT.PROVIDERS.AUTH.JWT_PROVIDER,
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
       ],
     },
+    {
+      provide: CONSTANT.USE_CASES.AUTH.SIGN_OUT,
+      useFactory: (jwtProvider: IJwtProvider, authService: IAuthService) =>
+        new SignOutUseCase(jwtProvider, authService),
+      inject: [
+        CONSTANT.PROVIDERS.AUTH.JWT_PROVIDER,
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
+      ],
+    },
+
+    CookieManagerProvider,
   ],
   exports: [CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE],
 })
