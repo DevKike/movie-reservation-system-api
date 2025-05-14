@@ -6,9 +6,13 @@ import { Movie } from './infrastructure/entity/movies.entity';
 import { CONSTANT } from 'src/common/constants/constant';
 import { IMoviesService } from './domain/interfaces/service/movies.service.interface';
 import { AddMovieUseCase } from './application/add-movie.use-case';
+import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
+import { IUploadsService } from '../common/domain/providers/interfaces/uploads/uploads.service.interface';
+import { UsersModule } from '../users/users.module';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie])],
+  imports: [TypeOrmModule.forFeature([Movie]), UsersModule, SharedModule],
   controllers: [MoviesController],
   providers: [
     {
@@ -17,9 +21,16 @@ import { AddMovieUseCase } from './application/add-movie.use-case';
     },
     {
       provide: CONSTANT.USE_CASES.MOVIE.ADD_MOVIE,
-      useFactory: (moviesService: IMoviesService) =>
-        new AddMovieUseCase(moviesService),
-      inject: [CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE],
+      useFactory: (
+        moviesService: IMoviesService,
+        usersService: IUsersService,
+        uploadsService: IUploadsService,
+      ) => new AddMovieUseCase(moviesService, usersService, uploadsService),
+      inject: [
+        CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
+        CONSTANT.PROVIDERS.USER.USERS_SERVICE,
+        CONSTANT.PROVIDERS.UPLOAD.UPLOADS_SERVICE,
+      ],
     },
   ],
 })
