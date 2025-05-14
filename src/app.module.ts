@@ -20,7 +20,14 @@ import { MoviesModule } from './lib/movies/movies.module';
       useClass: RolesGuard,
     },
   ],
-  imports: [CoreModule, UsersModule, RolesModule, AuthModule, SharedModule, MoviesModule],
+  imports: [
+    CoreModule,
+    UsersModule,
+    RolesModule,
+    AuthModule,
+    SharedModule,
+    MoviesModule,
+  ],
   controllers: [],
 })
 export class AppModule {}
