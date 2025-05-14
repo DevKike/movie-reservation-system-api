@@ -18,6 +18,11 @@ export const CONSTANT = {
     MOVIE: {
       MOVIES_SERVICE: 'MoviesService',
     },
+
+    UPLOAD: {
+      UPLOADS_PROVIDER: 'S3Provider',
+      UPLOADS_SERVICE: 'UploadsService',
+    },
   },
 
   USE_CASES: {
@@ -49,12 +54,15 @@ export const CONSTANT = {
       DATABASE: 'database',
       ROOT_USER: 'rootUser',
       JWT: 'jwt',
+      UPLOADS: 'uploads',
     },
 
     IS_PUBLIC: 'isPublic',
     USER: 'user',
     ROLE: 'role',
     REFRESH_TOKEN: 'refreshToken',
+    FILE: 'file',
+    IMAGES_PATH: 'images',
   },
 
   ROLE_IDS: {
