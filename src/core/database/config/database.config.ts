@@ -4,6 +4,7 @@ import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 import { User } from 'src/lib/users/infrastructure/entity/users.entity';
 import { Auth } from 'src/lib/auth/infrastructure/entity/auth.entity';
 import { IDatabaseConfig } from './interfaces/database.config.interface';
+import { Movies } from 'src/lib/movies/infrastructure/entity/movies.entity';
 
 export default registerAs(
   CONSTANT.KEYS.CONFIG.DATABASE,
@@ -14,7 +15,7 @@ export default registerAs(
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME!,
-    entities: [Role, User, Auth],
+    entities: [Role, User, Auth, Movies],
     synchronize: process.env.DB_SYNCHRONIZE === 'true',
   }),
 );
