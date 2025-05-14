@@ -5,7 +5,7 @@ export interface IShowtime {
   isAvailable: boolean;
 }
 
-export interface IMovies {
+export interface IMovie {
   id: number;
   title: string;
   description: string;
@@ -16,3 +16,9 @@ export interface IMovies {
   updatedAt: Date;
   createdBy: IUser;
 }
+
+export interface ISaveMovie
+  extends Pick<
+    IMovie,
+    'title' | 'description' | 'posterUrl' | 'genre' | 'showtimes' | 'createdBy'
+  > {}
