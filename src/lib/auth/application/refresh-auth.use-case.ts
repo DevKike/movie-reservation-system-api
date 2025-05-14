@@ -39,6 +39,7 @@ export class RefreshAuthUseCase
           sub: auth.id,
           email: auth.email,
           roleId: auth.user.role.id,
+          userId: auth.user.id,
         },
         'access',
       );
@@ -69,7 +70,7 @@ export class RefreshAuthUseCase
           roleId: auth.user.role.id,
         },
       };
-    } catch (_) {
+    } catch {
       throw new UnauthorizedException('Invalid or expired token');
     }
   }
