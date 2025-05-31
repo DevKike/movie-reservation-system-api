@@ -44,6 +44,7 @@ export const CONSTANT = {
     USER: 'user',
     ROLE: 'role',
     REFRESH_TOKEN: 'refreshToken',
+    AUTH_PATH: '/api/auth',
   },
 
   ROLE_IDS: {

@@ -4,26 +4,21 @@ import { CookieOptions, Response } from 'express';
 
 @Injectable()
 export class CookieManagerProvider {
-  setAuthCookie(
-    res: Response,
-    basePath: string,
-    token: string,
-    expiresIn: number,
-  ): void {
+  setAuthCookie(res: Response, token: string, expiresIn: number): void {
     const options: CookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'strict',
       maxAge: expiresIn,
-      path: basePath,
+      path: CONSTANT.KEYS.AUTH_PATH,
     };
 
     res.cookie(CONSTANT.KEYS.REFRESH_TOKEN, token, options);
   }
 
-  clearAuthCookie(res: Response, basePath: string): void {
+  clearAuthCookie(res: Response): void {
     res.clearCookie(CONSTANT.KEYS.REFRESH_TOKEN, {
-      path: basePath,
+      path: CONSTANT.KEYS.AUTH_PATH,
     });
   }
 }
