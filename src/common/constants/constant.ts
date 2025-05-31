@@ -63,6 +63,7 @@ export const CONSTANT = {
     REFRESH_TOKEN: 'refreshToken',
     FILE: 'file',
     IMAGES_PATH: 'images',
+    AUTH_PATH: '/api/auth',
   },
 
   ROLE_IDS: {

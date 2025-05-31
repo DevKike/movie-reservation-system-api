@@ -6,8 +6,6 @@ import {
   HttpStatus,
   Inject,
   Post,
-  Req,
-  Res,
   UseInterceptors,
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
