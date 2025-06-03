@@ -9,6 +9,7 @@ import { IRolesService } from 'src/lib/roles/domain/interfaces/service/roles.ser
 import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
 import { AlreadyExistsException } from 'src/common/exceptions/already-exists.exception';
 import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
+import { IMailerService } from 'src/lib/common/domain/providers/interfaces/mailer/mailer.service.interface';
 
 export class SignOnAdminUseCase implements IUseCase<ISignUp, ISignUpRes> {
   constructor(
@@ -16,6 +17,7 @@ export class SignOnAdminUseCase implements IUseCase<ISignUp, ISignUpRes> {
     private readonly _rolesService: IRolesService,
     private readonly _usersService: IUsersService,
     private readonly _hashProvider: IHashProvider,
+    private readonly _mailerService: IMailerService,
   ) {}
 
   async execute(input: ISignUp): Promise<ISignUpRes> {
@@ -47,6 +49,17 @@ export class SignOnAdminUseCase implements IUseCase<ISignUp, ISignUpRes> {
       email: input.email,
       password: hashedPassword,
       user: userCreated,
+    });
+
+    await this._mailerService.sendMail({
+      to: createdAuth.email,
+      subject: 'Welcome to out platform!',
+      template: {
+        name: 'welcome',
+        context: {
+          name: userCreated.name,
+        },
+      },
     });
 
     const { password, ...authWithoutPassword } = createdAuth;

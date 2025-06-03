@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #dc3545;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 30px 20px;
+            text-align: center;
+            color: #333;
+        }
+        .welcome-message {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #dc3545;
+        }
+        .name {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Movie Reservation System</h1>
+        </div>
+        
+        <div class="content">
+            <p class="welcome-message">
+                Welcome <span class="name">{{name}}</span>! 🎉
+            </p>
+            <p>
+                Your account has been successfully created.<br>
+                We're excited to have you on board!
+            </p>
+        </div>
+    </div>
+</body>
+</html>
