@@ -64,6 +64,7 @@ export const CONSTANT = {
     AUTH_PATH: '/api/auth',
     FILE: 'file',
     IMAGES_PATH: 'images',
+    MOVIES_PATH: 'movies',
   },
 
   ROLE_IDS: {

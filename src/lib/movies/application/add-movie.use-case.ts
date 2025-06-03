@@ -21,9 +21,9 @@ export class AddMovieUseCase implements IUseCase<IAddMovieData, IAddMovieRes> {
 
     if (!userData) throw new BadRequestException('Bad request');
 
-    const uploadedUrl = await this._uploadsService.uploadFile(
-      input.posterFile,
-      CONSTANT.KEYS.IMAGES_PATH,
+    const uploadedImageUrl = await this._uploadsService.uploadFile(
+      input.posterImage,
+      `${CONSTANT.KEYS.IMAGES_PATH}/${CONSTANT.KEYS.MOVIES_PATH}`,
     );
 
     const movie = await this._moviesService.save({
@@ -31,7 +31,7 @@ export class AddMovieUseCase implements IUseCase<IAddMovieData, IAddMovieRes> {
       description: input.description,
       genre: input.genre,
       showtimes: input.showtimes,
-      posterUrl: uploadedUrl,
+      posterUrl: uploadedImageUrl,
       createdBy: userData,
     });
 
