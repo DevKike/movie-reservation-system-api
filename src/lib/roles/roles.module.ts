@@ -6,10 +6,9 @@ import { RolesController } from './infrastructure/controller/roles.controller';
 import { CONSTANT } from 'src/common/constants/constant';
 import { IRolesService } from './domain/interfaces/service/roles.service.interface';
 import { GetAllRolesUseCase } from './application/get-all-roles.use.case';
-import { User } from '../users/infrastructure/entity/users.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Role, User])],
+  imports: [TypeOrmModule.forFeature([Role])],
   controllers: [RolesController],
   providers: [
     {

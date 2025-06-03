@@ -7,6 +7,7 @@ import { IAuthService } from '../domain/interfaces/service/auth.service.interfac
 import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
 import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
 import { IJwtProvider } from 'src/lib/common/domain/providers/interfaces/jwt/jwt.provider.interface';
+import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
 
 export class SignInUseCase implements IUseCase<IAuthCredentials, ISignInRes> {
   constructor(
@@ -27,11 +28,12 @@ export class SignInUseCase implements IUseCase<IAuthCredentials, ISignInRes> {
 
     if (!isPasswordValid) throw new BadRequestException('Invalid credentials');
 
-    const accessToken = await this._jwtProvider.signToken(
+    const accessToken = await this._jwtProvider.signToken<IJwtPayload>(
       {
         sub: auth.id,
         email: auth.email,
         roleId: auth.user.role.id,
+        userId: auth.user.id,
       },
       'access',
     );

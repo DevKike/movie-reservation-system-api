@@ -5,12 +5,15 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UsersStatus } from '../../domain/enums/users-status.enum';
 import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
+import { Movie } from 'src/lib/movies/infrastructure/entity/movies.entity';
+import { IMovie } from 'src/lib/movies/domain/interfaces/entity/movies.entity.interface';
 
 @Entity('users')
 export class User implements IUser {
@@ -38,4 +41,7 @@ export class User implements IUser {
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id' })
   role: IRole;
+
+  @OneToMany(() => Movie, (movie) => movie.createdBy)
+  movies: IMovie[];
 }

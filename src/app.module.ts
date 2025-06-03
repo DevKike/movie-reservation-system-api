@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { CONSTANT } from './common/constants/constant';
 import { AuthGuard } from './lib/auth/infrastructure/guards/auth/auth.guard';
 import { RolesGuard } from './lib/auth/infrastructure/guards/roles/roles.guard';
+import { MoviesModule } from './lib/movies/movies.module';
 
 @Module({
   providers: [
@@ -19,7 +20,14 @@ import { RolesGuard } from './lib/auth/infrastructure/guards/roles/roles.guard';
       useClass: RolesGuard,
     },
   ],
-  imports: [CoreModule, UsersModule, RolesModule, AuthModule, SharedModule],
+  imports: [
+    CoreModule,
+    UsersModule,
+    RolesModule,
+    AuthModule,
+    SharedModule,
+    MoviesModule,
+  ],
   controllers: [],
 })
 export class AppModule {}

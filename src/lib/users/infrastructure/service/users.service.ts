@@ -25,7 +25,11 @@ export class UsersService implements IUsersService {
   }
 
   async get(id: IUser['id']): Promise<IUser> {
-    const user = await this._usersRepository.findOneBy({ id });
+    const user = await this._usersRepository.findOne({
+      where: {
+        id,
+      },
+    });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
 
