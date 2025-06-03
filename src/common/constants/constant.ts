@@ -61,9 +61,9 @@ export const CONSTANT = {
     USER: 'user',
     ROLE: 'role',
     REFRESH_TOKEN: 'refreshToken',
+    AUTH_PATH: '/api/auth',
     FILE: 'file',
     IMAGES_PATH: 'images',
-    AUTH_PATH: '/api/auth',
   },
 
   ROLE_IDS: {
