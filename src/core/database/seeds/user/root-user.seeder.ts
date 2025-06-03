@@ -10,6 +10,7 @@ import { HashProvider } from 'src/shared/providers/hash/hash.provider';
 import { CONSTANT } from 'src/common/constants/constant';
 import rootUserConfig from './config/root-user.config';
 import { ConfigType } from '@nestjs/config';
+import { UsersStatus } from 'src/lib/users/domain/enums/users-status.enum';
 
 @Injectable()
 export class UserSeeder implements OnModuleInit {
@@ -52,11 +53,12 @@ export class UserSeeder implements OnModuleInit {
         name: this._rootUserConfig.name,
         lastName: this._rootUserConfig.lastName,
         phoneNumber: this._rootUserConfig.phoneNumber,
+        status: UsersStatus.ACTIVE,
         role: rootRole,
       });
 
       const hashedPassword = await this._hashProvider.hash(
-        this._rootUserConfig.password ?? 'password123',
+        this._rootUserConfig.password,
       );
 
       await this._authRepository.save({
