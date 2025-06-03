@@ -29,9 +29,6 @@ export class UsersService implements IUsersService {
       where: {
         id,
       },
-      relations: {
-        role: true,
-      },
     });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
