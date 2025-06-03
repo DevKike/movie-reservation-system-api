@@ -24,7 +24,7 @@ export interface ISaveMovie
 export interface IAddMovieData
   extends Omit<ISaveMovie, 'createdBy' | 'posterUrl'> {
   userId: IUser['id'];
-  posterFile: IUploadFile;
+  posterImage: IUploadFile;
 }
 
 export interface IAddMovieBody
