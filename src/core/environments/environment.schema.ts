@@ -22,6 +22,13 @@ export const environmentSchema = Joi.object({
   JWT_AUDIENCE: Joi.string().default('my-api'),
   JWT_ISSUER: Joi.string().default('my-api'),
 
+  MAIL_HOST: Joi.string().required(),
+  MAIL_PORT: Joi.number().required(),
+  MAIL_IS_SECURE: Joi.boolean().default(false),
+  MAIL_USER: Joi.string().required(),
+  MAIL_PASSWORD: Joi.string().required(),
+  MAIL_FROM_NAME: Joi.string().required(),
+
   ROOT_USER_EMAIL: Joi.string().email().empty('').default('root@example.com'),
   ROOT_USER_PASSWORD: Joi.string().empty('').default('password123'),
   ROOT_USER_NAME: Joi.string().empty('').default('Root'),
