@@ -33,3 +33,16 @@ export interface IAddMovieBody
 export interface IAddMovieRes {
   movie: IMovie;
 }
+
+export interface IUpdateMovieData
+  extends Partial<
+    Omit<IMovie, 'id' | 'createdAt' | 'updatedAt' | 'createdBy'>
+  > {}
+
+export interface IUpdateMovieBody extends IUpdateMovieData {
+  movieId: IMovie['id'];
+}
+
+export interface IUpdateMovieRes {
+  movie: IMovie;
+}
