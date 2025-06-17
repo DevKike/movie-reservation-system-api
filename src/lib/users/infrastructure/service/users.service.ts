@@ -17,7 +17,9 @@ export class UsersService implements IUsersService {
   ) {}
 
   async getAll(): Promise<IUser[]> {
-    const users = await this._usersRepository.find();
+    const users = await this._usersRepository.find({
+      relations: ['movies'],
+    });
 
     if (!users.length) throw new NotFoundException('No users found');
 
@@ -25,7 +27,10 @@ export class UsersService implements IUsersService {
   }
 
   async getById(id: IUser['id']): Promise<IUser> {
-    const user = await this._usersRepository.findOne({ where: { id } });
+    const user = await this._usersRepository.findOne({
+      where: { id },
+      relations: ['movies'],
+    });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
 
@@ -33,7 +38,10 @@ export class UsersService implements IUsersService {
   }
 
   async getByPhoneNumber(phoneNumber: string): Promise<IUser | null> {
-    return await this._usersRepository.findOneBy({ phoneNumber });
+    return await this._usersRepository.findOne({
+      where: { phoneNumber },
+      relations: ['movies'],
+    });
   }
 
   async save(user: ISaveUser): Promise<IUser> {
