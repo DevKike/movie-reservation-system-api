@@ -24,12 +24,8 @@ export class UsersService implements IUsersService {
     return users;
   }
 
-  async get(id: IUser['id']): Promise<IUser> {
-    const user = await this._usersRepository.findOne({
-      where: {
-        id,
-      },
-    });
+  async getById(id: IUser['id']): Promise<IUser> {
+    const user = await this._usersRepository.findOne({ where: { id } });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
 
@@ -48,10 +44,10 @@ export class UsersService implements IUsersService {
     userId: IUpdateUser['userId'],
     userData: IUpdateUser['userData'],
   ): Promise<IUser> {
-    await this.get(userId);
+    await this.getById(userId);
 
     await this._usersRepository.update(userId, userData);
 
-    return await this.get(userId);
+    return await this.getById(userId);
   }
 }

@@ -17,7 +17,7 @@ export class AddMovieUseCase implements IUseCase<IAddMovieData, IAddMovieRes> {
   ) {}
 
   async execute(input: IAddMovieData): Promise<IAddMovieRes> {
-    const userData = await this._usersService.get(input.userId);
+    const userData = await this._usersService.getById(input.userId);
 
     if (!userData) throw new BadRequestException('Bad request');
 
