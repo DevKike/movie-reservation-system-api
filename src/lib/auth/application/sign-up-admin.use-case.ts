@@ -53,7 +53,7 @@ export class SignOnAdminUseCase implements IUseCase<ISignUp, ISignUpRes> {
 
     await this._mailerService.sendMail({
       to: createdAuth.email,
-      subject: 'Welcome to out platform!',
+      subject: 'Welcome to our platform!',
       template: {
         name: 'welcome',
         context: {
