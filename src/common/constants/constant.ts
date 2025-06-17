@@ -23,6 +23,11 @@ export const CONSTANT = {
       UPLOADS_PROVIDER: 'S3Provider',
       UPLOADS_SERVICE: 'UploadsService',
     },
+
+    MAILER: {
+      MAILER_PROVIDER: 'MailerProvider',
+      MAILER_SERVICE: 'MailerService',
+    },
   },
 
   USE_CASES: {
@@ -54,6 +59,7 @@ export const CONSTANT = {
       DATABASE: 'database',
       ROOT_USER: 'rootUser',
       JWT: 'jwt',
+      MAILER: 'mailer',
       UPLOADS: 'uploads',
     },
 

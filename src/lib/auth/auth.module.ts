@@ -18,6 +18,7 @@ import { IJwtProvider } from '../common/domain/providers/interfaces/jwt/jwt.prov
 import { RefreshAuthUseCase } from './application/refresh-auth.use-case';
 import { SignOutUseCase } from './application/sign-out.use-case';
 import { CookieManagerProvider } from './infrastructure/providers/cookie-manager.provider';
+import { IMailerService } from '../common/domain/providers/interfaces/mailer/mailer.service.interface';
 
 @Module({
   imports: [
@@ -39,18 +40,21 @@ import { CookieManagerProvider } from './infrastructure/providers/cookie-manager
         rolesService: IRolesService,
         usersService: IUsersService,
         hashService: IHashProvider,
+        mailerService: IMailerService,
       ) =>
         new SignOnAdminUseCase(
           authService,
           rolesService,
           usersService,
           hashService,
+          mailerService,
         ),
       inject: [
         CONSTANT.PROVIDERS.AUTH.AUTH_SERVICE,
         CONSTANT.PROVIDERS.ROLE.ROLES_SERVICE,
         CONSTANT.PROVIDERS.USER.USERS_SERVICE,
         CONSTANT.PROVIDERS.AUTH.HASH_PROVIDER,
+        CONSTANT.PROVIDERS.MAILER.MAILER_SERVICE,
       ],
     },
     {
