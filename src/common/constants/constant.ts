@@ -74,6 +74,9 @@ export const CONSTANT = {
     FILE: 'file',
     IMAGES_PATH: 'images',
     MOVIES_PATH: 'movies',
+    USER_ID: 'userId',
+    PAGE: 'page',
+    LIMIT: 'limit',
   },
 
   ROLE_IDS: {
