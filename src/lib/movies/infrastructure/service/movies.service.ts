@@ -31,6 +31,9 @@ export class MoviesService implements IMoviesService {
     const movies = await this._movieRepository.find({
       take: limit,
       skip,
+      order: {
+        id: paginationQuery.order,
+      },
     });
 
     return {
@@ -38,6 +41,7 @@ export class MoviesService implements IMoviesService {
       page,
       limit,
       totalPages,
+      order: paginationQuery.order,
     };
   }
 

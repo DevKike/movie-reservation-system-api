@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer';
-import { IsOptional, IsPositive, Min } from 'class-validator';
+import { IsEnum, IsOptional, IsPositive, Min } from 'class-validator';
 import { IPaginationQuery } from '../../../common/domain/interfaces/query/pagination-query.interface';
+import { ORDER } from 'src/common/enums/order.enum';
 
 export class PaginationQueryDTO implements IPaginationQuery {
   @IsOptional()
@@ -14,4 +15,9 @@ export class PaginationQueryDTO implements IPaginationQuery {
   @IsPositive()
   @Min(1)
   limit: number = 10;
+
+  @IsOptional()
+  @IsEnum(ORDER, { message: 'Order must be ASC or DESC' })
+  @Transform(({ value }) => String(value).toUpperCase())
+  order: ORDER = ORDER.DESC;
 }

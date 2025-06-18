@@ -78,6 +78,7 @@ export const CONSTANT = {
     USER_ID: 'userId',
     PAGE: 'page',
     LIMIT: 'limit',
+    ORDER: 'order',
   },
 
   ROLE_IDS: {
