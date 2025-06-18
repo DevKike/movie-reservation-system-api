@@ -1,12 +1,12 @@
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import {
   IAuthTokens,
   ISignInRes,
 } from '../domain/interfaces/entity/auth.entity.interface';
 import { UnauthorizedException } from 'src/common/exceptions/unauthorized.exception';
-import { IJwtProvider } from 'src/lib/common/domain/providers/interfaces/jwt/jwt.provider.interface';
+import { IJwtProvider } from 'src/lib/common/domain/interfaces/providers/jwt/jwt.provider.interface';
 import { IAuthService } from '../domain/interfaces/service/auth.service.interface';
-import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
+import { IJwtPayload } from 'src/lib/common/domain/interfaces/providers/jwt/jwt-payload.interface';
 
 export class RefreshAuthUseCase
   implements IUseCase<IAuthTokens['refreshToken'], ISignInRes>

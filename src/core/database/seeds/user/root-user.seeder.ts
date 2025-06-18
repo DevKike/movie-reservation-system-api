@@ -10,7 +10,7 @@ import { HashProvider } from 'src/shared/providers/hash/hash.provider';
 import { CONSTANT } from 'src/common/constants/constant';
 import rootUserConfig from './config/root-user.config';
 import { ConfigType } from '@nestjs/config';
-import { UsersStatus } from 'src/lib/users/domain/enums/users-status.enum';
+import { USER_STATUS } from 'src/lib/users/domain/enums/users-status.enum';
 
 @Injectable()
 export class UserSeeder implements OnModuleInit {
@@ -53,7 +53,7 @@ export class UserSeeder implements OnModuleInit {
         name: this._rootUserConfig.name,
         lastName: this._rootUserConfig.lastName,
         phoneNumber: this._rootUserConfig.phoneNumber,
-        status: UsersStatus.ACTIVE,
+        status: USER_STATUS.ACTIVE,
         role: rootRole,
       });
 

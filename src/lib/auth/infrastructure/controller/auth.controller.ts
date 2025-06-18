@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
 import { SignUpDTO } from '../dtos/sign-up.dto';
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import {
   IAuthCredentials,
   IAuthTokens,
@@ -24,7 +24,7 @@ import { AuthCookieInterceptor } from 'src/lib/auth/infrastructure/interceptors/
 import { Public } from '../decorators/auth/auth.decorator';
 import { RefreshToken } from '../decorators/auth/refresh-token.decorator';
 import { ActiveUser } from '../decorators/auth/active-user.decorator';
-import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
+import { IJwtPayload } from 'src/lib/common/domain/interfaces/providers/jwt/jwt-payload.interface';
 import { AuthCookieClearInterceptor } from '../interceptors/auth-cookie/auth-cookie-clear.interceptor';
 
 @Controller('auth')

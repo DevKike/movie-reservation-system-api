@@ -1,5 +1,5 @@
 import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
-import { UsersStatus } from '../../enums/users-status.enum';
+import { USER_STATUS } from '../../enums/users-status.enum';
 import { IMovie } from 'src/lib/movies/domain/interfaces/entity/movies.entity.interface';
 
 export interface IUser {
@@ -7,7 +7,7 @@ export interface IUser {
   name: string;
   lastName: string;
   phoneNumber?: string;
-  status: UsersStatus;
+  status: USER_STATUS;
   createdAt: Date;
   updatedAt: Date;
   role: IRole;

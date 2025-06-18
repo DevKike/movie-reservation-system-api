@@ -8,7 +8,7 @@ import {
 import { Observable, from, switchMap } from 'rxjs';
 import { CONSTANT } from 'src/common/constants/constant';
 import { CookieManagerProvider } from '../../providers/cookie-manager.provider';
-import { IJwtProvider } from 'src/lib/common/domain/providers/interfaces/jwt/jwt.provider.interface';
+import { IJwtProvider } from 'src/lib/common/domain/interfaces/providers/jwt/jwt.provider.interface';
 import { ISignInRes } from 'src/lib/auth/domain/interfaces/entity/auth.entity.interface';
 import { Response } from 'express';
 

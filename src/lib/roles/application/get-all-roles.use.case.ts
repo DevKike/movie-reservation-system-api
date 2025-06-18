@@ -1,4 +1,4 @@
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import { IGetRolesRes } from '../domain/interfaces/entity/roles.entity.interface';
 import { IRolesService } from '../domain/interfaces/service/roles.service.interface';
 

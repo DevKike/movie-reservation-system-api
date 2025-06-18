@@ -10,15 +10,15 @@ import { UsersModule } from '../users/users.module';
 import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
 import { RolesModule } from '../roles/roles.module';
 import { IRolesService } from '../roles/domain/interfaces/service/roles.service.interface';
-import { IHashProvider } from '../common/domain/providers/interfaces/hash/hash.provider.interface';
+import { IHashProvider } from '../common/domain/interfaces/providers/hash/hash.provider.interface';
 import { SharedModule } from 'src/shared/shared.module';
 import { SignOnUserUseCase } from './application/sign-up-user.use-case';
 import { SignInUseCase } from './application/sign-in-.use-case';
-import { IJwtProvider } from '../common/domain/providers/interfaces/jwt/jwt.provider.interface';
+import { IJwtProvider } from '../common/domain/interfaces/providers/jwt/jwt.provider.interface';
 import { RefreshAuthUseCase } from './application/refresh-auth.use-case';
 import { SignOutUseCase } from './application/sign-out.use-case';
 import { CookieManagerProvider } from './infrastructure/providers/cookie-manager.provider';
-import { IMailerService } from '../common/domain/providers/interfaces/mailer/mailer.service.interface';
+import { IMailerService } from '../common/domain/interfaces/providers/mailer/mailer.service.interface';
 
 @Module({
   imports: [

@@ -1,6 +1,6 @@
-import { IMailerService } from 'src/lib/common/domain/providers/interfaces/mailer/mailer.service.interface';
+import { IMailerService } from 'src/lib/common/domain/interfaces/providers/mailer/mailer.service.interface';
 import { IMailerProvider } from './provider/interface/mailer.provider.interface';
-import { IMail } from 'src/lib/common/domain/providers/interfaces/mailer/mail.interface';
+import { IMail } from 'src/lib/common/domain/interfaces/providers/mailer/mail.interface';
 import { RequestTimeoutException } from '@nestjs/common';
 
 export class MailerService implements IMailerService {

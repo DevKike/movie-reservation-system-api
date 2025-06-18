@@ -1,8 +1,8 @@
 import { CustomException } from './custom.exception';
-import { HttpStatus } from './enums/http-status-code.enum';
+import { HTTP_STATUS } from './enums/http-status-code.enum';
 
 export class BadRequestException extends CustomException {
   constructor(message?: string) {
-    super(HttpStatus.BAD_REQUEST, message ?? 'Bad Request');
+    super(HTTP_STATUS.BAD_REQUEST, message ?? 'Bad Request');
   }
 }

@@ -17,18 +17,19 @@ export class UsersService implements IUsersService {
   ) {}
 
   async getAll(): Promise<IUser[]> {
-    const users = await this._usersRepository.find();
+    const users = await this._usersRepository.find({
+      relations: ['role', 'movies'],
+    });
 
     if (!users.length) throw new NotFoundException('No users found');
 
     return users;
   }
 
-  async get(id: IUser['id']): Promise<IUser> {
+  async getById(id: IUser['id']): Promise<IUser> {
     const user = await this._usersRepository.findOne({
-      where: {
-        id,
-      },
+      where: { id },
+      relations: ['role', 'movies'],
     });
 
     if (!user) throw new NotFoundException(`User with id ${id} not found`);
@@ -37,7 +38,10 @@ export class UsersService implements IUsersService {
   }
 
   async getByPhoneNumber(phoneNumber: string): Promise<IUser | null> {
-    return await this._usersRepository.findOneBy({ phoneNumber });
+    return await this._usersRepository.findOne({
+      where: { phoneNumber },
+      relations: ['role', 'movies'],
+    });
   }
 
   async save(user: ISaveUser): Promise<IUser> {
@@ -48,10 +52,10 @@ export class UsersService implements IUsersService {
     userId: IUpdateUser['userId'],
     userData: IUpdateUser['userData'],
   ): Promise<IUser> {
-    await this.get(userId);
+    await this.getById(userId);
 
     await this._usersRepository.update(userId, userData);
 
-    return await this.get(userId);
+    return await this.getById(userId);
   }
 }

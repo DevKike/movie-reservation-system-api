@@ -3,7 +3,7 @@ import { ConfigType } from '@nestjs/config';
 import uploadsConfig from '../config/uploads.config';
 import { Inject, RequestTimeoutException } from '@nestjs/common';
 import * as path from 'path';
-import { IUploadFile } from 'src/lib/common/domain/providers/interfaces/uploads/upload-file.interface';
+import { IUploadFile } from 'src/lib/common/domain/interfaces/providers/uploads/upload-file.interface';
 import { IUploadsProvider } from './interface/uploads.provider.interface';
 
 export class S3Provider implements IUploadsProvider {

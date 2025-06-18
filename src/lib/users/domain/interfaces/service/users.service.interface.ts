@@ -6,7 +6,7 @@ import {
 
 export interface IUsersService {
   getAll(): Promise<IUser[]>;
-  get(id: IUser['id']): Promise<IUser>;
+  getById(id: IUser['id']): Promise<IUser>;
   getByPhoneNumber(phoneNumber: string): Promise<IUser | null>;
   save(user: ISaveUser): Promise<IUser>;
   update(

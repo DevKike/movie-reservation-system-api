@@ -1,4 +1,4 @@
-import { IUploadFile } from 'src/lib/common/domain/providers/interfaces/uploads/upload-file.interface';
+import { IUploadFile } from 'src/lib/common/domain/interfaces/providers/uploads/upload-file.interface';
 
 export interface IUploadsProvider {
   uploadFile(file: IUploadFile, folderPath: string): Promise<string>;

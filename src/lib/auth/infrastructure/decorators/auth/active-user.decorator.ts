@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
-import { IRequest } from 'src/lib/common/domain/request/interface/request.interface';
+import { IJwtPayload } from 'src/lib/common/domain/interfaces/providers/jwt/jwt-payload.interface';
+import { IRequest } from 'src/lib/common/domain/interfaces/request/request.interface';
 
 export const ActiveUser = createParamDecorator(
   (field: keyof IJwtPayload | undefined, ctx: ExecutionContext) => {

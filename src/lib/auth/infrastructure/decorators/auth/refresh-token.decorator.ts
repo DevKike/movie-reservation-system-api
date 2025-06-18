@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
-import { IRequest } from 'src/lib/common/domain/request/interface/request.interface';
+import { IRequest } from 'src/lib/common/domain/interfaces/request/request.interface';
 
 export const RefreshToken = createParamDecorator((_, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest<IRequest>();

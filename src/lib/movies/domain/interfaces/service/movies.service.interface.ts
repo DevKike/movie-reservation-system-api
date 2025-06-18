@@ -1,7 +1,15 @@
-import { IMovie, ISaveMovie } from '../entity/movies.entity.interface';
+import { IPaginationQuery } from 'src/lib/common/domain/interfaces/query/pagination-query.interface';
+import {
+  IGetAllMoviesRes,
+  IMovie,
+  ISaveMovie,
+  IUpdateMovie,
+} from '../entity/movies.entity.interface';
 
 export interface IMoviesService {
-  // getAll(): Promise<IMovies[]>;
-  // get(): Promise<IMovie>;
+  getAll(paginationQuery: IPaginationQuery): Promise<IGetAllMoviesRes>;
+  getById(id: IMovie['id']): Promise<IMovie>;
   save(movie: ISaveMovie): Promise<IMovie>;
+  update(movie: IMovie, data: IUpdateMovie): Promise<IMovie>;
+  delete(id: IMovie['id']): Promise<void>;
 }

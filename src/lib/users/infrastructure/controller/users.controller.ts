@@ -5,7 +5,7 @@ import {
 } from '../../domain/interfaces/entity/users.entity.interface';
 import { UpdateUserDTO } from '../dtos/update-user';
 import { CONSTANT } from 'src/common/constants/constant';
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import { ActiveUser } from 'src/lib/auth/infrastructure/decorators/auth/active-user.decorator';
 import { IAuth } from 'src/lib/auth/domain/interfaces/entity/auth.entity.interface';
 
@@ -25,14 +25,14 @@ export class UsersController {
     return await this._getAllUsersUseCase.execute();
   }
 
-  @Get()
+  @Get('me')
   async get(@ActiveUser('sub') id: IAuth['id']): Promise<IUser> {
     return await this._getUserUseCase.execute(id);
   }
 
   @Patch()
   async update(
-    @ActiveUser('sub') id: IUser['id'],
+    @ActiveUser('sub') id: IAuth['id'],
     @Body() data: UpdateUserDTO,
   ): Promise<IUser> {
     return await this._updateUserUseCase.execute({
