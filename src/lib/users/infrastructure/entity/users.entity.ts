@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UsersStatus } from '../../domain/enums/users-status.enum';
+import { USER_STATUS } from '../../domain/enums/users-status.enum';
 import { IRole } from 'src/lib/roles/domain/interfaces/entity/roles.entity.interface';
 import { Role } from 'src/lib/roles/infrastructure/entity/roles.entity';
 import { Movie } from 'src/lib/movies/infrastructure/entity/movies.entity';
@@ -29,8 +29,8 @@ export class User implements IUser {
   @Column({ name: 'phone_number', length: 15, unique: true, nullable: true })
   phoneNumber?: string;
 
-  @Column({ type: 'enum', enum: UsersStatus, default: UsersStatus.INACTIVE })
-  status: UsersStatus;
+  @Column({ type: 'enum', enum: USER_STATUS, default: USER_STATUS.INACTIVE })
+  status: USER_STATUS;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -6,7 +6,7 @@ export interface IPaginationQuery {
   order: ORDER;
 }
 
-export interface IPaginationRes extends Omit<IPaginationQuery, 'order'> {
+export interface IPaginationRes extends IPaginationQuery {
   skip: number;
   totalPages: number;
 }

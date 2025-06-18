@@ -7,10 +7,10 @@ export const calculatePaginationOffset = (
   query: IPaginationQuery,
   totalRecords: number,
 ): IPaginationRes => {
-  const { page, limit } = query;
+  const { page, limit, order } = query;
 
   const skip = (page - 1) * limit;
   const totalPages = Math.ceil(totalRecords / limit);
 
-  return { skip, totalPages, page, limit };
+  return { skip, totalPages, page, limit, order };
 };
