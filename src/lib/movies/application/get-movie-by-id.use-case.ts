@@ -1,4 +1,4 @@
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import { IMovie } from '../domain/interfaces/entity/movies.entity.interface';
 import { IMoviesService } from '../domain/interfaces/service/movies.service.interface';
 
