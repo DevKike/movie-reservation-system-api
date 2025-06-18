@@ -7,29 +7,36 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { CONSTANT } from 'src/common/constants/constant';
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import { AddMovieDTO } from '../dtos/add-movie.dto';
 import {
   IAddMovieData,
+  IGetAllMoviesRes,
   IMovie,
   IUpdateMovieReq,
   IUpdateMovieRes,
 } from '../../domain/interfaces/entity/movies.entity.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { IUploadFile } from 'src/lib/common/domain/providers/interfaces/uploads/upload-file.interface';
+import { IUploadFile } from 'src/lib/common/domain/interfaces/providers/uploads/upload-file.interface';
 import { ActiveUser } from 'src/lib/auth/infrastructure/decorators/auth/active-user.decorator';
 import { IUser } from 'src/lib/users/domain/interfaces/entity/users.entity.interface';
 import { UpdateMovieDTO } from '../dtos/update-movie.dto';
+import { IPaginationQuery } from 'src/lib/common/domain/interfaces/query/pagination-query.interface';
+import { PaginationQueryDTO } from '../dtos/pagination-query.dto';
 
 @Controller('movies')
 export class MoviesController {
   constructor(
     @Inject(CONSTANT.USE_CASES.MOVIE.GET_ALL)
-    private readonly _getAllMoviesUseCase: IUseCase<void, IMovie[]>,
+    private readonly _getAllMoviesUseCase: IUseCase<
+      IPaginationQuery,
+      IGetAllMoviesRes
+    >,
     @Inject(CONSTANT.USE_CASES.MOVIE.GET_BY_ID)
     private readonly _getMovieByIdUseCase: IUseCase<IMovie['id'], IMovie>,
     @Inject(CONSTANT.USE_CASES.MOVIE.ADD)
@@ -41,9 +48,9 @@ export class MoviesController {
     >,
   ) {}
 
-  @Get('')
-  async getAll() {
-    return await this._getAllMoviesUseCase.execute();
+  @Get()
+  async getAll(@Query() query: PaginationQueryDTO) {
+    return await this._getAllMoviesUseCase.execute(query);
   }
 
   @Get(':id')
