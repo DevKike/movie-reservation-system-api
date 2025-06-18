@@ -7,7 +7,7 @@ import { CONSTANT } from 'src/common/constants/constant';
 import { IMoviesService } from './domain/interfaces/service/movies.service.interface';
 import { AddMovieUseCase } from './application/add-movie.use-case';
 import { IUsersService } from '../users/domain/interfaces/service/users.service.interface';
-import { IUploadsService } from '../common/domain/providers/interfaces/uploads/uploads.service.interface';
+import { IUploadsService } from '../common/domain/interfaces/providers/uploads/uploads.service.interface';
 import { UsersModule } from '../users/users.module';
 import { SharedModule } from 'src/shared/shared.module';
 import { UpdateMovieUseCase } from './application/update-movie.use-case';

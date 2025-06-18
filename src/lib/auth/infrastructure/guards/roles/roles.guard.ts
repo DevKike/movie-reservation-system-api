@@ -3,8 +3,8 @@ import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { CONSTANT } from 'src/common/constants/constant';
 import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
-import { IJwtPayload } from 'src/lib/common/domain/providers/interfaces/jwt/jwt-payload.interface';
-import { IRequest } from 'src/lib/common/domain/request/interface/request.interface';
+import { IJwtPayload } from 'src/lib/common/domain/interfaces/providers/jwt/jwt-payload.interface';
+import { IRequest } from 'src/lib/common/domain/interfaces/request/request.interface';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

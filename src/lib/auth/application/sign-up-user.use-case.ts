@@ -6,9 +6,9 @@ import {
 import { IAuthService } from '../domain/interfaces/service/auth.service.interface';
 import { ROLE } from 'src/lib/roles/domain/enums/roles.enum';
 import { IRolesService } from 'src/lib/roles/domain/interfaces/service/roles.service.interface';
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import { AlreadyExistsException } from 'src/common/exceptions/already-exists.exception';
-import { IHashProvider } from 'src/lib/common/domain/providers/interfaces/hash/hash.provider.interface';
+import { IHashProvider } from 'src/lib/common/domain/interfaces/providers/hash/hash.provider.interface';
 
 export class SignOnUserUseCase implements IUseCase<ISignUp, ISignUpRes> {
   constructor(

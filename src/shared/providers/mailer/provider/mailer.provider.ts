@@ -3,7 +3,7 @@ import { IMailerProvider } from './interface/mailer.provider.interface';
 import mailerConfig from '../config/mailer.config';
 import { ConfigType } from '@nestjs/config';
 import { createTransport, Transporter } from 'nodemailer';
-import { IMail } from 'src/lib/common/domain/providers/interfaces/mailer/mail.interface';
+import { IMail } from 'src/lib/common/domain/interfaces/providers/mailer/mail.interface';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as handlebars from 'handlebars';

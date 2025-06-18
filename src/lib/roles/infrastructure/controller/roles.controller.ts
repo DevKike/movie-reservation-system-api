@@ -3,7 +3,7 @@ import { CONSTANT } from 'src/common/constants/constant';
 import { IGetRolesRes } from '../../domain/interfaces/entity/roles.entity.interface';
 import { Roles } from 'src/lib/auth/infrastructure/decorators/roles/roles.decorator';
 import { ROLE } from '../../domain/enums/roles.enum';
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 
 @Controller('roles')
 export class RolesController {

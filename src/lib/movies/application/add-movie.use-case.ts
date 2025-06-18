@@ -1,4 +1,4 @@
-import { IUseCase } from 'src/lib/common/domain/use-case/interfaces/use-case.interface';
+import { IUseCase } from 'src/lib/common/domain/interfaces/use-case/use-case.interface';
 import {
   IAddMovieData,
   IAddMovieRes,
@@ -6,7 +6,7 @@ import {
 import { IMoviesService } from '../domain/interfaces/service/movies.service.interface';
 import { IUsersService } from 'src/lib/users/domain/interfaces/service/users.service.interface';
 import { BadRequestException } from 'src/common/exceptions/bad-request.exception';
-import { IUploadsService } from 'src/lib/common/domain/providers/interfaces/uploads/uploads.service.interface';
+import { IUploadsService } from 'src/lib/common/domain/interfaces/providers/uploads/uploads.service.interface';
 import { CONSTANT } from 'src/common/constants/constant';
 
 export class AddMovieUseCase implements IUseCase<IAddMovieData, IAddMovieRes> {
