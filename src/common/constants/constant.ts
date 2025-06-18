@@ -16,7 +16,7 @@ export const CONSTANT = {
     },
 
     MOVIE: {
-      MOVIES_SERVICE: 'MoviesService',
+      SERVICE: 'MoviesService',
     },
 
     UPLOAD: {
@@ -50,8 +50,10 @@ export const CONSTANT = {
     },
 
     MOVIE: {
-      ADD_MOVIE: 'AddMovieUseCase',
-      UPDATE_MOVIE: 'UpdateMovieUseCase',
+      GET_ALL: 'GetAllMoviesUseCase',
+      GET_BY_ID: 'GetMovieByIdUseCase',
+      ADD: 'AddMovieUseCase',
+      UPDATE: 'UpdateMovieUseCase',
     },
   },
 

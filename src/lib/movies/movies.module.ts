@@ -11,37 +11,51 @@ import { IUploadsService } from '../common/domain/providers/interfaces/uploads/u
 import { UsersModule } from '../users/users.module';
 import { SharedModule } from 'src/shared/shared.module';
 import { UpdateMovieUseCase } from './application/update-movie.use-case';
+import { GetAllMoviesUseCase } from './application/get-all-movies.use-case';
+import { GetMovieByIdUseCase } from './application/get-movie-by-id.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Movie]), UsersModule, SharedModule],
   controllers: [MoviesController],
   providers: [
     {
-      provide: CONSTANT.PROVIDERS.MOVIE.MOVIES_SERVICE,
+      provide: CONSTANT.PROVIDERS.MOVIE.SERVICE,
       useClass: MoviesService,
     },
     {
-      provide: CONSTANT.USE_CASES.MOVIE.ADD_MOVIE,
+      provide: CONSTANT.USE_CASES.MOVIE.GET_ALL,
+      useFactory: (moviesService: IMoviesService) =>
+        new GetAllMoviesUseCase(moviesService),
+      inject: [CONSTANT.PROVIDERS.MOVIE.SERVICE],
+    },
+    {
+      provide: CONSTANT.USE_CASES.MOVIE.GET_BY_ID,
+      useFactory: (moviesService: IMoviesService) =>
+        new GetMovieByIdUseCase(moviesService),
+      inject: [CONSTANT.PROVIDERS.MOVIE.SERVICE],
+    },
+    {
+      provide: CONSTANT.USE_CASES.MOVIE.ADD,
       useFactory: (
         moviesService: IMoviesService,
         usersService: IUsersService,
         uploadsService: IUploadsService,
       ) => new AddMovieUseCase(moviesService, usersService, uploadsService),
       inject: [
-        CONSTANT.PROVIDERS.MOVIE.MOVIES_SERVICE,
+        CONSTANT.PROVIDERS.MOVIE.SERVICE,
         CONSTANT.PROVIDERS.USER.USERS_SERVICE,
         CONSTANT.PROVIDERS.UPLOAD.UPLOADS_SERVICE,
       ],
     },
     {
-      provide: CONSTANT.USE_CASES.MOVIE.UPDATE_MOVIE,
+      provide: CONSTANT.USE_CASES.MOVIE.UPDATE,
       useFactory: (
         usersService: IUsersService,
         moviesService: IMoviesService,
       ) => new UpdateMovieUseCase(usersService, moviesService),
       inject: [
         CONSTANT.PROVIDERS.USER.USERS_SERVICE,
-        CONSTANT.PROVIDERS.MOVIE.MOVIES_SERVICE,
+        CONSTANT.PROVIDERS.MOVIE.SERVICE,
       ],
     },
   ],

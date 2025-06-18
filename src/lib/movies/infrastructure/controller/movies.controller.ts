@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Inject,
   Param,
   ParseIntPipe,
@@ -27,18 +28,32 @@ import { UpdateMovieDTO } from '../dtos/update-movie.dto';
 @Controller('movies')
 export class MoviesController {
   constructor(
-    @Inject(CONSTANT.USE_CASES.MOVIE.ADD_MOVIE)
+    @Inject(CONSTANT.USE_CASES.MOVIE.GET_ALL)
+    private readonly _getAllMoviesUseCase: IUseCase<void, IMovie[]>,
+    @Inject(CONSTANT.USE_CASES.MOVIE.GET_BY_ID)
+    private readonly _getMovieByIdUseCase: IUseCase<IMovie['id'], IMovie>,
+    @Inject(CONSTANT.USE_CASES.MOVIE.ADD)
     private readonly _addMovieUseCase: IUseCase<IAddMovieData, IMovie>,
-    @Inject(CONSTANT.USE_CASES.MOVIE.UPDATE_MOVIE)
+    @Inject(CONSTANT.USE_CASES.MOVIE.UPDATE)
     private readonly _updateMovieUseCase: IUseCase<
       IUpdateMovieReq,
       IUpdateMovieRes
     >,
   ) {}
 
+  @Get('')
+  async getAll() {
+    return await this._getAllMoviesUseCase.execute();
+  }
+
+  @Get(':id')
+  async getById(@Param('id', ParseIntPipe) id: IMovie['id']) {
+    return await this._getMovieByIdUseCase.execute(id);
+  }
+
   @UseInterceptors(FileInterceptor(CONSTANT.KEYS.FILE))
   @Post('add')
-  async addMovie(
+  async add(
     @ActiveUser('userId') userId: IUser['id'],
     @Body() data: AddMovieDTO,
     @UploadedFile() posterImage: Express.Multer.File,
@@ -51,7 +66,7 @@ export class MoviesController {
   }
 
   @Patch(':id')
-  async updateMovie(
+  async update(
     @ActiveUser('userId') userId: IUser['id'],
     @Param('id', ParseIntPipe) movieId: number,
     @Body() data: UpdateMovieDTO,
