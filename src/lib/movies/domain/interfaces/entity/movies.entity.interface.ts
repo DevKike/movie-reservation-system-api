@@ -34,12 +34,13 @@ export interface IAddMovieRes {
   movie: IMovie;
 }
 
-export interface IUpdateMovieData
+export interface IUpdateMovie
   extends Partial<
-    Omit<IMovie, 'id' | 'createdAt' | 'updatedAt' | 'createdBy'>
+    Omit<IMovie, 'id' | 'posterUrl' | 'createdAt' | 'updatedAt' | 'createdBy'>
   > {}
 
-export interface IUpdateMovieBody extends IUpdateMovieData {
+export interface IUpdateMovieReq extends IUpdateMovie {
+  userId: IUser['id'];
   movieId: IMovie['id'];
 }
 

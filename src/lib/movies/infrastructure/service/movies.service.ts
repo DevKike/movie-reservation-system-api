@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   ISaveMovie,
   IMovie,
-  IUpdateMovieData,
+  IUpdateMovie,
 } from '../../domain/interfaces/entity/movies.entity.interface';
 import { NotFoundException } from 'src/common/exceptions/not-found.exception';
 
@@ -21,7 +21,7 @@ export class MoviesService implements IMoviesService {
     return await this._movieRepository.find();
   }
 
-  async get(id: IMovie['id']): Promise<IMovie> {
+  async getById(id: IMovie['id']): Promise<IMovie> {
     const movie = await this._movieRepository.findOne({ where: { id } });
 
     if (!movie) throw new NotFoundException('Movie was not found');
@@ -33,14 +33,12 @@ export class MoviesService implements IMoviesService {
     return await this._movieRepository.save(movie);
   }
 
-  async update(id: IMovie['id'], data: IUpdateMovieData): Promise<IMovie> {
-    const movie = await this.get(id);
-
+  async update(movie: IMovie, data: IUpdateMovie): Promise<IMovie> {
     return await this._movieRepository.save({ ...movie, ...data });
   }
 
   async delete(id: IMovie['id']): Promise<void> {
-    const movie = await this.get(id);
+    const movie = await this.getById(id);
 
     await this._movieRepository.delete(movie.id);
   }

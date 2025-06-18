@@ -51,6 +51,7 @@ export const CONSTANT = {
 
     MOVIE: {
       ADD_MOVIE: 'AddMovieUseCase',
+      UPDATE_MOVIE: 'UpdateMovieUseCase',
     },
   },
 

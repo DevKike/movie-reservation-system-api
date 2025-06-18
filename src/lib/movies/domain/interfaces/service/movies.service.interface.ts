@@ -1,13 +1,13 @@
 import {
   IMovie,
   ISaveMovie,
-  IUpdateMovieData,
+  IUpdateMovie,
 } from '../entity/movies.entity.interface';
 
 export interface IMoviesService {
   getAll(): Promise<IMovie[]>;
-  get(id: IMovie['id']): Promise<IMovie>;
+  getById(id: IMovie['id']): Promise<IMovie>;
   save(movie: ISaveMovie): Promise<IMovie>;
-  update(id: IMovie['id'], data: IUpdateMovieData): Promise<IMovie>;
+  update(movie: IMovie, data: IUpdateMovie): Promise<IMovie>;
   delete(id: IMovie['id']): Promise<void>;
 }
