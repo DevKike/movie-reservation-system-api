@@ -54,6 +54,7 @@ export const CONSTANT = {
       GET_BY_ID: 'GetMovieByIdUseCase',
       ADD: 'AddMovieUseCase',
       UPDATE: 'UpdateMovieUseCase',
+      DELETE: 'DeleteMovieUseCase',
     },
   },
 

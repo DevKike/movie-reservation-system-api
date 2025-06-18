@@ -13,6 +13,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { UpdateMovieUseCase } from './application/update-movie.use-case';
 import { GetAllMoviesUseCase } from './application/get-all-movies.use-case';
 import { GetMovieByIdUseCase } from './application/get-movie-by-id.use-case';
+import { DeleteMovieUseCase } from './application/delete-movie.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Movie]), UsersModule, SharedModule],
@@ -57,6 +58,12 @@ import { GetMovieByIdUseCase } from './application/get-movie-by-id.use-case';
         CONSTANT.PROVIDERS.USER.USERS_SERVICE,
         CONSTANT.PROVIDERS.MOVIE.SERVICE,
       ],
+    },
+    {
+      provide: CONSTANT.USE_CASES.MOVIE.DELETE,
+      useFactory: (moviesService: IMoviesService) =>
+        new DeleteMovieUseCase(moviesService),
+      inject: [CONSTANT.PROVIDERS.MOVIE.SERVICE],
     },
   ],
 })

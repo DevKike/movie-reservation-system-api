@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -46,6 +47,8 @@ export class MoviesController {
       IUpdateMovieReq,
       IUpdateMovieRes
     >,
+    @Inject(CONSTANT.USE_CASES.MOVIE.DELETE)
+    private readonly _deleteMovieUseCase: IUseCase<IMovie['id'], void>,
   ) {}
 
   @Get()
@@ -83,5 +86,10 @@ export class MoviesController {
       movieId,
       ...data,
     });
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') movieId: IMovie['id']) {
+    return await this._deleteMovieUseCase.execute(movieId);
   }
 }
